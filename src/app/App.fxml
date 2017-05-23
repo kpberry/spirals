@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="734.0" prefWidth="1103.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
+     <center>
+      <ScrollPane>
+         <content>
+                <Canvas fx:id="canvas" height="709.0" width="943.0" />
+         </content>
+      </ScrollPane>
+     </center>
+     <left>
+         <VBox alignment="TOP_CENTER" prefHeight="709.0" prefWidth="304.0" spacing="10.0" BorderPane.alignment="CENTER">
+             <GridPane hgap="10.0" vgap="5.0">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+                 <VBox.margin>
+                     <Insets />
+                 </VBox.margin>
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Length" />
+                 <TextField fx:id="spiralLengthField" text="10000" GridPane.columnIndex="1" />
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Square Size" GridPane.rowIndex="1" />
+                 <TextField fx:id="elementSizeField" text="3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" GridPane.rowIndex="2" />
+                 <TextField fx:id="canvasWidthField" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="3" />
+                 <TextField fx:id="canvasHeightField" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                 <Text layoutX="15.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Color" GridPane.rowIndex="4" />
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Color" GridPane.rowIndex="5" />
+                 <ColorPicker fx:id="primaryColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <value>
+                         <Color blue="0.04" green="0.02" red="0.01" />
+                     </value>
+                 </ColorPicker>
+                 <ColorPicker fx:id="secondaryColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <value>
+                         <Color green="1.0" />
+                     </value>
+                 </ColorPicker>
+             </GridPane>
+             <Button mnemonicParsing="false" onAction="#drawSquareUlamSpiral" text="Draw Square Ulam Spiral" />
+             <Button mnemonicParsing="false" onAction="#drawSquareLogSpiral" text="Draw Square Log Spiral" />
+         <Button layoutX="112.0" layoutY="280.0" mnemonicParsing="false" onAction="#drawHexUlamSpiral" text="Draw Hex Ulam Spiral" />
+         <Button layoutX="97.0" layoutY="315.0" mnemonicParsing="false" onAction="#drawHexLogSpiral" text="Draw Hex Log Spiral" />
+         <Button mnemonicParsing="false" onAction="#saveCanvasAsImage" text="Save" />
+             <padding>
+                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+             </padding>
+             <BorderPane.margin>
+                 <Insets />
+             </BorderPane.margin>
+         </VBox>
+     </left>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="1103.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+ </BorderPane>
