@@ -91,6 +91,7 @@ public class AppController implements Initializable {
     //This is admittedly gross, but was pretty easy to write. Just an example
     //of creating a custom spiral inline. Could be used later to make arbitrary
     //spirals from within the GUI
+    //TODO make it so that the preprocessing and inclusion criteria can handle arbitrary functions via a CAS
     private void customSpiralExample() {
         Color primary = primaryColorPicker.getValue();
         Color secondary = secondaryColorPicker.getValue();
