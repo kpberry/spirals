@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import math.Primes;
 import math.Triangular;
 import spirals.ColorScheme;
-import spirals.InclusionCriterion;
 import spirals.PriorityColorScheme;
 import spirals.Spiral;
 import spirals.hex.HexLogSpiral;

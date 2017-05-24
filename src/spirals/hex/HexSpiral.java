@@ -8,7 +8,8 @@ import spirals.InclusionCriterion;
 import spirals.Spiral;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 public abstract class HexSpiral extends Spiral {
 

@@ -8,7 +8,8 @@ import java.util.Optional;
 import static math.Primes.updateFactorCounts;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 public class HexLogSpiral extends HexSpiral {
 

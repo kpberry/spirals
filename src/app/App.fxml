@@ -18,14 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Text?>
-
 <BorderPane prefHeight="734.0" prefWidth="1103.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AppController">
      <center>
-      <ScrollPane>
-         <content>
-                <Canvas fx:id="canvas" height="709.0" width="943.0" />
-         </content>
-      </ScrollPane>
+         <ScrollPane>
+             <Canvas fx:id="canvas" height="709.0" width="943.0"/>
+         </ScrollPane>
      </center>
      <left>
          <VBox alignment="TOP_CENTER" prefHeight="709.0" prefWidth="304.0" spacing="10.0" BorderPane.alignment="CENTER">
@@ -83,31 +80,24 @@
          </VBox>
      </left>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+       <MenuBar BorderPane.alignment="CENTER">
+           <Menu mnemonicParsing="false" text="File">
+               <MenuItem mnemonicParsing="false" text="Close"/>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Edit">
+               <MenuItem mnemonicParsing="false" text="Delete"/>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Help">
+               <MenuItem mnemonicParsing="false" text="About"/>
+           </Menu>
+       </MenuBar>
    </top>
    <bottom>
-      <AnchorPane BorderPane.alignment="CENTER">
-         <children>
-            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="1103.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
+       <AnchorPane BorderPane.alignment="CENTER">
+           <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="1103.0"
+                        progress="0.0" AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                        AnchorPane.topAnchor="0.0"/>
+       </AnchorPane>
    </bottom>
  </BorderPane>

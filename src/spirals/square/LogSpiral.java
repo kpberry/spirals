@@ -1,6 +1,5 @@
 package spirals.square;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import math.Primes;
 
@@ -9,7 +8,8 @@ import java.util.Optional;
 import static math.Primes.updateFactorCounts;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 public class LogSpiral extends SquareSpiral {
     public LogSpiral(Color base) {

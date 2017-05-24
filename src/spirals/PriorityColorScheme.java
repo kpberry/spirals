@@ -5,7 +5,8 @@ import javafx.scene.paint.Color;
 import java.util.Optional;
 
 /**
- * Created by Kevin on 5/23/2017 for Spirals.
+ * Created by Kevin on 5/23/2017 for Spirals for Spirals.
+ *
  */
 public class PriorityColorScheme implements ColorScheme {
     private final ColorScheme[] colorSchemes;

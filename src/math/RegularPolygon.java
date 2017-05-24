@@ -3,18 +3,17 @@ package math;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.Arrays;
-
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 public class RegularPolygon {
     private final int numPoints;
     private final double outRadius;
     private final double inRadius;
     private double centerX, centerY;
-    private double[] xPoints;
-    private double[] yPoints;
+    private final double[] xPoints;
+    private final double[] yPoints;
     private Color color;
 
     public RegularPolygon(int numPoints, double outRadius) {
@@ -68,6 +67,8 @@ public class RegularPolygon {
             xPoints[i] += x;
             yPoints[i] += y;
         }
+        centerX += x;
+        centerY += y;
     }
 
     public double getOutRadius() {
@@ -84,6 +85,18 @@ public class RegularPolygon {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setCenterX(double centerX) {
+        this.centerX = centerX;
+    }
+
+    public void setCenterY(double centerY) {
+        this.centerY = centerY;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public double getInRadius() {

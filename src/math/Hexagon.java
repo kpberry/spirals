@@ -3,7 +3,8 @@ package math;
 import javafx.scene.paint.Color;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 public class Hexagon extends RegularPolygon {
     public Hexagon(double outRadius) {
@@ -39,7 +40,8 @@ public class Hexagon extends RegularPolygon {
 
 
         private static final double baseTheta = Math.PI / 3;
-        private double xBase, yBase;
+        private final double xBase;
+        private final double yBase;
 
         TilingDirection(double position) {
             final double theta = baseTheta * position;

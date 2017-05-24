@@ -1,7 +1,8 @@
 package spirals;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 @FunctionalInterface
 public interface InclusionCriterion {

@@ -17,10 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kevin on 5/19/2017 for genes.
+ * Created by Kevin on 5/19/2017 for genes for Spirals.
+ *
  */
 public class DataLogging {
-    private static Map<String, Integer> dirIndices = new HashMap<>();
+    private static final Map<String, Integer> dirIndices = new HashMap<>();
 
     /**
      * Gets a new numbered file with a given extension within a desired
@@ -83,9 +84,9 @@ public class DataLogging {
 
     public static Chart getBarHistogram(double[] data, double[] ranges) {
         double[] rangeCounts = new double[ranges.length - 1];
-        for (int i = 0; i < data.length; i++) {
+        for (double aData : data) {
             for (int j = 0; j < ranges.length - 1; j++) {
-                if (data[i] >= ranges[j] && data[i] < ranges[j + 1]) {
+                if (aData >= ranges[j] && aData < ranges[j + 1]) {
                     rangeCounts[j]++;
                 }
             }
@@ -106,9 +107,9 @@ public class DataLogging {
 
     public static Chart getLineHistogram(double[] data, double[] ranges) {
         double[] rangeCounts = new double[ranges.length - 1];
-        for (int i = 0; i < data.length; i++) {
+        for (double aData : data) {
             for (int j = 0; j < ranges.length - 1; j++) {
-                if (data[i] >= ranges[j] && data[i] < ranges[j + 1]) {
+                if (aData >= ranges[j] && aData < ranges[j + 1]) {
                     rangeCounts[j]++;
                 }
             }
@@ -129,9 +130,9 @@ public class DataLogging {
 
     public static Chart getLineCDF(double[] data, double[] ranges) {
         double[] rangeCounts = new double[ranges.length - 1];
-        for (int i = 0; i < data.length; i++) {
+        for (double aData : data) {
             for (int j = 0; j < ranges.length - 1; j++) {
-                if (data[i] <= ranges[j]) {
+                if (aData <= ranges[j]) {
                     rangeCounts[j]++;
                 }
             }

@@ -6,7 +6,8 @@ import javafx.scene.paint.Color;
 import java.util.Optional;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 @FunctionalInterface
 public interface ColorScheme {

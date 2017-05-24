@@ -1,7 +1,8 @@
 package math;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ *
  */
 public class Primes {
     private static int[] factorCounts = new int[0];
