@@ -1,7 +1,6 @@
 package spirals.hex;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import math.Hexagon;
 import spirals.ColorScheme;
 import spirals.InclusionCriterion;
@@ -18,7 +17,7 @@ public abstract class HexSpiral extends Spiral {
     }
 
     @Override
-    public void draw(GraphicsContext gc, int length, double elemSize, ProgressBar progressBar) {
+    public void draw(GraphicsContext gc, int length, double elemSize) {
         preprocess(length);
 
         double x = gc.getCanvas().getWidth() / 2;
@@ -30,7 +29,6 @@ public abstract class HexSpiral extends Spiral {
         final ColorScheme cs = this.getCs();
         final InclusionCriterion ic = this.getIc();
 
-        double progressBase = 1.0 / length;
         Hexagon cur = new Hexagon(elemSize, x, y, getCs().getColor(1));
         cur.fill(gc);
         Hexagon.TilingDirection direction = Hexagon.TilingDirection.UP_RIGHT;
@@ -53,9 +51,6 @@ public abstract class HexSpiral extends Spiral {
                 cur = new Hexagon(cur, direction, cs.getColor(i));
                 cur.fill(gc);
                 strideIndex++;
-            }
-            if (progressBar != null) {
-                progressBar.setProgress(progressBase * i);
             }
         }
     }

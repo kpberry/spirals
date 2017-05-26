@@ -3,7 +3,7 @@
   <component name="CheckStyle-IDEA">
     <option name="configuration">
       <map>
-        <entry key="scan-before-checkin" value="false" />
+        <entry key="scan-before-checkin" value="true" />
       </map>
     </option>
   </component>

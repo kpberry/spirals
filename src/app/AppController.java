@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import math.Primes;
@@ -43,8 +42,6 @@ public class AppController implements Initializable {
     private ColorPicker primaryColorPicker;
     @FXML
     private ColorPicker secondaryColorPicker;
-    @FXML
-    private ProgressBar progressBar;
 
     private IntField intSpiralLengthField;
     private IntField intElementSizeField;
@@ -61,7 +58,6 @@ public class AppController implements Initializable {
 
         canvas.setWidth(intCanvasWidthField.getValue());
         canvas.setHeight(intCanvasHeightField.getValue());
-        progressBar.setProgress(0);
     }
 
     @FXML
@@ -127,6 +123,6 @@ public class AppController implements Initializable {
         canvas.setWidth(canvasWidth);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvasWidth, canvasHeight);
-        spiral.draw(gc, spiralLength, elemSize, progressBar);
+        spiral.draw(gc, spiralLength, elemSize);
     }
 }

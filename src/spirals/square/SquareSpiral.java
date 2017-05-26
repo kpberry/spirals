@@ -2,7 +2,6 @@ package spirals.square;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import spirals.ColorScheme;
 import spirals.InclusionCriterion;
 import spirals.Spiral;
@@ -17,7 +16,7 @@ public abstract class SquareSpiral extends Spiral {
     }
 
     @Override
-    public void draw(GraphicsContext gc, int length, double elemSize, ProgressBar progressBar) {
+    public void draw(GraphicsContext gc, int length, double elemSize) {
         preprocess(length);
 
         Point2D cur = new Point2D(
@@ -26,7 +25,6 @@ public abstract class SquareSpiral extends Spiral {
         );
 
         Direction direction = Direction.RIGHT;
-        double progressBase = 1.0 / length;
         int stride = 1;
         int strideIndex = 0;
         final ColorScheme cs = this.getCs();
@@ -62,10 +60,6 @@ public abstract class SquareSpiral extends Spiral {
                 }
 
                 strideIndex++;
-            }
-
-            if (progressBar != null) {
-                progressBar.setProgress(progressBase * i);
             }
         }
     }
