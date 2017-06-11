@@ -1,4 +1,4 @@
-package spirals;
+package com.kpberry.spirals;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals for Spirals.

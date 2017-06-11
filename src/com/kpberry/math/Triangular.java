@@ -1,4 +1,4 @@
-package math;
+package com.kpberry.math;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package spirals;
+package com.kpberry.spirals;
 
 import com.sun.istack.internal.NotNull;
 import javafx.scene.paint.Color;

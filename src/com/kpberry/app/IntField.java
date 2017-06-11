@@ -1,4 +1,4 @@
-package app;
+package com.kpberry.app;
 
 import javafx.scene.control.TextField;
 

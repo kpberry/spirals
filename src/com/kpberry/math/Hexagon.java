@@ -1,4 +1,4 @@
-package math;
+package com.kpberry.math;
 
 import javafx.scene.paint.Color;
 
@@ -17,8 +17,7 @@ public class Hexagon extends RegularPolygon {
 
     public Hexagon(Hexagon base, TilingDirection dir, Color color) {
         this(base.getOutRadius(),
-                base.getTilingXLoc(dir), base.getTilingYLoc(dir),
-                color
+                base.getTilingXLoc(dir), base.getTilingYLoc(dir), color
         );
     }
 

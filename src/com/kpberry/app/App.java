@@ -1,4 +1,4 @@
-package app;
+package com.kpberry.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         Class c = getClass();
-        loader.setLocation(c.getResource("/app/App.fxml"));
+        loader.setLocation(c.getResource("/com/kpberry/app/App.fxml"));
         Parent root = loader.load();
 
         // Show the scene

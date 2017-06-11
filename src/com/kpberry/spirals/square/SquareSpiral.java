@@ -1,10 +1,10 @@
-package spirals.square;
+package com.kpberry.spirals.square;
 
+import com.kpberry.spirals.ColorScheme;
+import com.kpberry.spirals.InclusionCriterion;
+import com.kpberry.spirals.Spiral;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import spirals.ColorScheme;
-import spirals.InclusionCriterion;
-import spirals.Spiral;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.

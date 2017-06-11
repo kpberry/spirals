@@ -1,18 +1,18 @@
-package spirals.square;
+package com.kpberry.spirals.square;
 
+import com.kpberry.math.Primes;
 import javafx.scene.paint.Color;
-import math.Primes;
 
 import java.util.Optional;
 
-import static math.Primes.updateFactorCounts;
+import static com.kpberry.math.Primes.updateFactorCounts;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals for Spirals.
  *
  */
-public class LogSpiral extends SquareSpiral {
-    public LogSpiral(Color base) {
+public class SquareLogSpiral extends SquareSpiral {
+    public SquareLogSpiral(Color base) {
         super(
                 n -> {
                     int count = Primes.factorCount(n);

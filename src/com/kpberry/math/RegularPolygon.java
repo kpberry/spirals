@@ -1,4 +1,4 @@
-package math;
+package com.kpberry.math;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

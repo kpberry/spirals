@@ -1,10 +1,10 @@
-package spirals.hex;
+package com.kpberry.spirals.hex;
 
+import com.kpberry.math.Hexagon;
+import com.kpberry.spirals.ColorScheme;
+import com.kpberry.spirals.InclusionCriterion;
+import com.kpberry.spirals.Spiral;
 import javafx.scene.canvas.GraphicsContext;
-import math.Hexagon;
-import spirals.ColorScheme;
-import spirals.InclusionCriterion;
-import spirals.Spiral;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals for Spirals.

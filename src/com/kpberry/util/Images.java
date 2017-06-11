@@ -1,4 +1,4 @@
-package util;
+package com.kpberry.util;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;

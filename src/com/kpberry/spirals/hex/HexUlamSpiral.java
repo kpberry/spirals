@@ -1,11 +1,11 @@
-package spirals.hex;
+package com.kpberry.spirals.hex;
 
 import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
-import static math.Primes.isPrime;
-import static math.Primes.updateFactorCounts;
+import static com.kpberry.math.Primes.isPrime;
+import static com.kpberry.math.Primes.updateFactorCounts;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals for Spirals.

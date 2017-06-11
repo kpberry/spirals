@@ -1,4 +1,4 @@
-package util;
+package com.kpberry.util;
 
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
