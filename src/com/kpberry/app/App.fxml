@@ -3,117 +3,28 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Text?>
 <BorderPane prefHeight="734.0" prefWidth="1103.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kpberry.app.AppController">
-     <center>
-         <ScrollPane>
-             <Canvas fx:id="canvas" height="709.0" width="943.0" />
-         </ScrollPane>
-     </center>
-     <left>
-         <VBox alignment="TOP_CENTER" prefHeight="709.0" prefWidth="384.0" spacing="10.0" BorderPane.alignment="CENTER">
-             <GridPane hgap="10.0" vgap="5.0">
-                 <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                 </columnConstraints>
-                 <rowConstraints>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                 </rowConstraints>
-                 <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                 </padding>
-                 <VBox.margin>
-                     <Insets />
-                 </VBox.margin>
-                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Length" />
-                 <TextField fx:id="spiralLengthField" text="10000" GridPane.columnIndex="1" />
-                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Square Size" GridPane.rowIndex="1" />
-                 <TextField fx:id="elementSizeField" text="3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" GridPane.rowIndex="2" />
-                 <TextField fx:id="canvasWidthField" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="3" />
-                 <TextField fx:id="canvasHeightField" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                 <Text layoutX="15.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Color" GridPane.rowIndex="4" />
-                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Color" GridPane.rowIndex="5" />
-                 <ColorPicker fx:id="primaryColorPicker" prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <value>
-                         <Color blue="0.04" green="0.02" red="0.01" />
-                     </value>
-                 </ColorPicker>
-                 <ColorPicker fx:id="secondaryColorPicker" prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <value>
-                         <Color green="1.0" />
-                     </value>
-                 </ColorPicker>
-             </GridPane>
-             <GridPane hgap="10.0" vgap="5.0">
-                 <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                        prefWidth="100.0"/>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                        prefWidth="100.0"/>
-                 </columnConstraints>
-                 <rowConstraints>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                     vgrow="SOMETIMES"/>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                     vgrow="SOMETIMES"/>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                     vgrow="SOMETIMES"/>
-                 </rowConstraints>
-                 <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                 </padding>
-                 <Button mnemonicParsing="false"
-                         onAction="#drawSquareUlamSpiral" prefHeight="25.0"
-                         prefWidth="223.0" text="Draw Square Ulam Spiral"/>
-                 <Button mnemonicParsing="false" onAction="#drawHexUlamSpiral"
-                         prefHeight="25.0" prefWidth="219.0"
-                         text="Draw Hex Ulam Spiral" GridPane.columnIndex="1"/>
-                 <Button mnemonicParsing="false" onAction="#drawSquareLogSpiral"
-                         prefHeight="25.0" prefWidth="239.0"
-                         text="Draw Square Log Spiral" GridPane.rowIndex="1"/>
-                 <Button mnemonicParsing="false" onAction="#drawHexLogSpiral"
-                         prefHeight="25.0" prefWidth="204.0"
-                         text="Draw Hex Log Spiral" GridPane.columnIndex="1"
-                         GridPane.rowIndex="1"/>
-                 <Button layoutX="15.0" layoutY="53.0" mnemonicParsing="false"
-                         onAction="#drawSquareGoldbachSpiral" prefHeight="25.0"
-                         prefWidth="209.0" text="Draw Square Goldbach Spiral"
-                         GridPane.rowIndex="2"/>
-                 <Button layoutX="15.0" layoutY="88.0" mnemonicParsing="false"
-                         onAction="#drawHexGoldbachSpiral" prefHeight="25.0"
-                         prefWidth="225.0" text="Draw Hex Goldbach Spiral"
-                         GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-             </GridPane>
-         <Button defaultButton="true" mnemonicParsing="false" onAction="#saveCanvasAsImage" text="Save" />
-             <padding>
-                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-             </padding>
-             <BorderPane.margin>
-                 <Insets />
-             </BorderPane.margin>
-         </VBox>
-     </left>
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <Menu mnemonicParsing="false" text="File">
@@ -130,4 +41,154 @@
    <bottom>
        <AnchorPane BorderPane.alignment="CENTER" />
    </bottom>
+   <left>
+      <TabPane BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab text="Spiral">
+               <content>
+                     <VBox alignment="TOP_CENTER" minWidth="300.0" prefHeight="707.0" prefWidth="330.0" spacing="10.0">
+                     <GridPane>
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Length" />
+                                <TextField fx:id="spiralLengthField" text="10000" GridPane.columnIndex="1" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Element Size" GridPane.rowIndex="1" />
+                                <TextField fx:id="elementSizeField" text="3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Shape" GridPane.rowIndex="2" />
+                           <ChoiceBox fx:id="drawerChoiceBox" prefHeight="25.0" prefWidth="396.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        </children>
+                     </GridPane>
+                     <Separator prefWidth="200.0" />
+                     <GridPane>
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <Button mnemonicParsing="false" onAction="#saveCanvasAsImage" prefHeight="25.0" prefWidth="342.0" text="Save" />
+                           <Button fx:id="drawSpiralButton" defaultButton="true" mnemonicParsing="false" onAction="#drawSpiral" prefHeight="25.0" prefWidth="267.0" text="Draw Spiral" GridPane.columnIndex="1" />
+                        </children>
+                     </GridPane>
+                         <padding>
+                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                         </padding>
+                     </VBox>
+               </content>
+            </Tab>
+            <Tab text="Math">
+               <content>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Label text="Inclusion Criteria" />
+                        <ListView fx:id="inclusionCriteriaListView" prefHeight="120.0" prefWidth="280.0" />
+                        <Separator prefWidth="200.0" />
+                        <Label text="Preprocessors" />
+                        <ListView fx:id="preprocessorsListView" prefHeight="120.0" prefWidth="280.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Color Scheme">
+               <content>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color Scheme" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="colorSchemeChoiceBox" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Separator prefWidth="200.0" />
+                        <Label text="Colors" />
+                        <ListView fx:id="colorsListView" prefHeight="139.0" prefWidth="310.0" />
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Color" GridPane.rowIndex="1" />
+                              <ColorPicker fx:id="newColorPicker" onAction="#addColor" prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <value>
+                                    <Color blue="0.04" green="0.02" red="0.01" />
+                                 </value>
+                              </ColorPicker>
+                           </children>
+                        </GridPane>
+                        <Separator prefWidth="200.0" />
+                        <Label text="Highlight Criteria" />
+                        <ListView fx:id="highlightCriteriaListView" layoutX="20.0" layoutY="147.0" prefHeight="139.0" prefWidth="310.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Canvas">
+               <content>
+                  <VBox prefHeight="678.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="1" />
+                              <TextField fx:id="canvasWidthField" text="1000" GridPane.columnIndex="1" />
+                              <TextField fx:id="canvasHeightField" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </left>
+   <center>
+         <ScrollPane BorderPane.alignment="CENTER">
+         <StackPane>
+            <children>
+                   <Canvas fx:id="spiralCanvas" height="1000.0" width="1000.0" />
+               <Canvas fx:id="textCanvas" height="1000.0" width="1000.0" />
+            </children>
+         </StackPane>
+         </ScrollPane>
+   </center>
  </BorderPane>

@@ -1,49 +1,58 @@
 package com.kpberry.app;
 
-import com.kpberry.math.Primes;
-import com.kpberry.math.Triangular;
 import com.kpberry.spirals.ColorScheme;
-import com.kpberry.spirals.PriorityColorScheme;
+import com.kpberry.spirals.Drawer;
 import com.kpberry.spirals.Spiral;
-import com.kpberry.spirals.hex.HexGoldbachSpiral;
-import com.kpberry.spirals.hex.HexLogSpiral;
-import com.kpberry.spirals.hex.HexSpiral;
-import com.kpberry.spirals.hex.HexUlamSpiral;
-import com.kpberry.spirals.square.SquareGoldbachSpiral;
-import com.kpberry.spirals.square.SquareLogSpiral;
-import com.kpberry.spirals.square.SquareUlamSpiral;
+import com.kpberry.spirals.color_schemes.Binary;
+import com.kpberry.spirals.color_schemes.MultipleOfBase;
+import com.kpberry.spirals.drawers.Hex;
+import com.kpberry.spirals.drawers.Square;
+import com.kpberry.spirals.inclusion_criteria.Any;
+import com.kpberry.spirals.inclusion_criteria.GT_Zero;
+import com.kpberry.spirals.inclusion_criteria.LogN_LT_FC;
+import com.kpberry.spirals.inclusion_criteria.Prime;
+import com.kpberry.spirals.preprocessors.IdentifyPrimeNumbers;
+import com.kpberry.spirals.preprocessors.IdentifyTriangularNumbers;
+import com.kpberry.spirals.preprocessors.InitializeFactorCounts;
+import com.kpberry.spirals.preprocessors.InitializeGoldbachCounts;
 import com.kpberry.util.Images;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import static com.kpberry.math.Primes.factorCount;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.
  *
  */
 public class AppController implements Initializable {
-    @FXML
-    private Canvas canvas;
-    @FXML
-    private TextField spiralLengthField;
-    @FXML
-    private TextField elementSizeField;
-    @FXML
-    private TextField canvasHeightField;
-    @FXML
-    private TextField canvasWidthField;
-    @FXML
-    private ColorPicker primaryColorPicker;
-    @FXML
-    private ColorPicker secondaryColorPicker;
+    @FXML private Canvas spiralCanvas;
+    @FXML private Canvas textCanvas;
+    @FXML private TextField spiralLengthField;
+    @FXML private TextField elementSizeField;
+    @FXML private TextField canvasHeightField;
+    @FXML private TextField canvasWidthField;
+    @FXML private ColorPicker newColorPicker;
+    @FXML private ChoiceBox<ColorScheme> colorSchemeChoiceBox;
+    @FXML private ChoiceBox<Drawer> drawerChoiceBox;
+    @FXML private ListView<Predicate<Integer>> inclusionCriteriaListView;
+    @FXML private ListView<Consumer<Integer>> preprocessorsListView;
+    @FXML private ListView<Predicate<Integer>> highlightCriteriaListView;
+    @FXML private ListView<Color> colorsListView;
 
     private IntField intSpiralLengthField;
     private IntField intElementSizeField;
@@ -58,75 +67,145 @@ public class AppController implements Initializable {
         intCanvasHeightField = new IntField(canvasHeightField);
         intCanvasWidthField = new IntField(canvasWidthField);
 
-        canvas.setWidth(intCanvasWidthField.getValue());
-        canvas.setHeight(intCanvasHeightField.getValue());
+        spiralCanvas.setWidth(intCanvasWidthField.getValue());
+        spiralCanvas.setHeight(intCanvasHeightField.getValue());
+
+        GraphicsContext textGC = textCanvas.getGraphicsContext2D();
+        /*textCanvas.setOnMouseMoved(
+                (mouse) -> {
+                    textGC.clearRect(
+                            0, 0, textCanvas.getWidth(), textCanvas.getHeight()
+                    );
+
+                    textGC.setFill(Color.WHITE);
+                    textGC.fillRect(
+                            mouse.getX(), mouse.getY(), 200, 200
+                    );
+
+                    textGC.setStroke(Color.BLACK);
+                    textGC.strokeText(
+                            "Hello!", mouse.getX() + 30, mouse.getY() + 30
+                    );
+                }
+        );*/
+
+        colorSchemeChoiceBox.getItems().addAll(
+                new Binary(new Prime(), null, null),
+                new MultipleOfBase(n -> (double) factorCount(n), Color.RED)
+        );
+
+        colorSchemeChoiceBox.getSelectionModel().select(0);
+
+        drawerChoiceBox.getItems().addAll(
+                new Square(),
+                new Hex()
+        );
+
+        drawerChoiceBox.getSelectionModel().select(0);
+
+        inclusionCriteriaListView.getSelectionModel()
+                .setSelectionMode(SelectionMode.MULTIPLE);
+        preprocessorsListView.getSelectionModel()
+                .setSelectionMode(SelectionMode.MULTIPLE);
+
+        inclusionCriteriaListView.getItems().addAll(
+                new Any(),
+                new GT_Zero(),
+                new LogN_LT_FC(),
+                new Prime()
+        );
+
+        inclusionCriteriaListView.getSelectionModel().select(0);
+
+        preprocessorsListView.getItems().addAll(
+                new InitializeFactorCounts(),
+                new InitializeGoldbachCounts(),
+                new IdentifyPrimeNumbers(),
+                new IdentifyTriangularNumbers()
+        );
+
+        preprocessorsListView.getSelectionModel().select(0);
+
+        colorsListView.getItems().addAll(
+                Color.RED,
+                Color.GREEN,
+                Color.BLUE,
+                Color.GRAY
+        );
+
+        colorsListView.getSelectionModel().select(0);
     }
 
-    @FXML
-    public void saveCanvasAsImage() {
-        Images.captureImage(canvas);
+    //TODO finish UI update
+
+    /**
+     * features to add:
+     *      Inclusion criteria selector
+     *      Highlight criteria selector
+     *      Color multiplier selector
+     *      Color selector
+     *      Base color schemes selector
+     *      Base color schemes orderer
+     */
+    //TODO add tooltip for each hexagon to show its rgb and which rules it follows
+
+    @FXML public void saveCanvasAsImage() {
+        Images.captureImage(spiralCanvas);
     }
 
-    //Ulam Spirals
-    @FXML
-    public void drawSquareUlamSpiral() {
-        Color primary = primaryColorPicker.getValue();
-        Color secondary = secondaryColorPicker.getValue();
-        drawSpiral(new SquareUlamSpiral(primary, secondary));
+    @FXML public void addColor() {
+        if (!colorsListView.getItems().contains(newColorPicker.getValue())) {
+            colorsListView.getItems().add(newColorPicker.getValue());
+        }
     }
 
-    @FXML
-    public void drawHexUlamSpiral() {
-        Color primary = primaryColorPicker.getValue();
-        Color secondary = secondaryColorPicker.getValue();
-        drawSpiral(new HexUlamSpiral(primary, secondary));
-    }
+    @FXML public void drawSpiral() {
+        Predicate<Integer> inclusionCriteria = (n) -> true;
+        for (Predicate<Integer> p
+                : inclusionCriteriaListView.getSelectionModel()
+                .getSelectedItems()) {
+            inclusionCriteria = inclusionCriteria.and(p);
+        }
 
-    //Log Spirals
-    @FXML
-    public void drawSquareLogSpiral() {
-        drawSpiral(new SquareLogSpiral(primaryColorPicker.getValue()));
-    }
+        Consumer<Integer> preprocessor = (n) -> {};
+        for (Consumer<Integer> c
+                : preprocessorsListView.getSelectionModel()
+                .getSelectedItems()) {
+            preprocessor = preprocessor.andThen(c);
+        }
 
-    @FXML
-    public void drawHexLogSpiral() {
-        drawSpiral(new HexLogSpiral(primaryColorPicker.getValue()));
-    }
+        Predicate<Integer> highlightCriterion = new Prime();
+        ObservableList<Predicate<Integer>> highlightCriteria
+                = highlightCriteriaListView.getSelectionModel().getSelectedItems();
+        if (highlightCriteria.size() > 0) {
+            highlightCriterion = highlightCriteria.get(0);
+        }
 
-    //Goldbach Spirals
-    @FXML
-    public void drawSquareGoldbachSpiral() {
-        drawSpiral(new SquareGoldbachSpiral(primaryColorPicker.getValue()));
-    }
+        Color primary = Color.RED;
+        Color secondary = Color.BLACK;
+        ObservableList<Color> colors = colorsListView.getSelectionModel().getSelectedItems();
+        if (colors.size() > 0) {
+            primary = colors.get(0);
+        }
+        if (colors.size() > 1) {
+            secondary = colors.get(1);
+        }
 
-    @FXML
-    public void drawHexGoldbachSpiral() {
-        drawSpiral(new HexGoldbachSpiral(primaryColorPicker.getValue()));
-    }
+        ColorScheme cs = colorSchemeChoiceBox.getValue();
+        if (cs instanceof Binary) {
+            cs = new Binary(highlightCriterion, primary, secondary);
+        } else {
+            cs = new MultipleOfBase(t -> (double) factorCount(t), primary);
+        }
 
-    //This is admittedly gross, but was pretty easy to write. Just an example
-    //of creating a custom spiral inline. Could be used later to make arbitrary
-    //com.kpberry.spirals from within the GUI
-    //TODO make it so that the preprocessing and inclusion criteria can handle arbitrary functions via a CAS
-    private void customSpiralExample() {
-        Color primary = primaryColorPicker.getValue();
-        Color secondary = secondaryColorPicker.getValue();
-        Color tertiary = Color.YELLOW;
+        Spiral spiral = new Spiral(
+                drawerChoiceBox.getValue(),
+                preprocessor,
+                cs,
+                inclusionCriteria
+        );
 
-        drawSpiral(new HexSpiral(
-                new PriorityColorScheme(
-                        new ColorScheme[]{
-                                n -> Optional.ofNullable(Triangular.isTriangular(n) ? tertiary : null),
-                                n -> Optional.of(Primes.isPrime(n) ? primary : secondary)
-                        }
-                ), value -> true
-        ) {
-            @Override
-            public void preprocess(int length) {
-                Primes.updateFactorCounts(length);
-                Triangular.updateTriangleNumbers(length);
-            }
-        });
+        drawSpiral(spiral);
     }
 
     public void drawSpiral(Spiral spiral) {
@@ -135,9 +214,9 @@ public class AppController implements Initializable {
         int canvasHeight = intCanvasHeightField.getValue();
         int canvasWidth = intCanvasWidthField.getValue();
 
-        canvas.setHeight(canvasHeight);
-        canvas.setWidth(canvasWidth);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        spiralCanvas.setHeight(canvasHeight);
+        spiralCanvas.setWidth(canvasWidth);
+        GraphicsContext gc = spiralCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvasWidth, canvasHeight);
         spiral.draw(gc, spiralLength, elemSize);
     }
