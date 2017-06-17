@@ -1,23 +1,21 @@
 package com.kpberry.math;
 
-import javafx.scene.paint.Color;
-
 /**
  * Created by Kevin on 5/21/2017 for Spirals for Spirals.
  *
  */
 public class Hexagon extends RegularPolygon {
     public Hexagon(double outRadius) {
-        this(outRadius, 0, 0, Color.BLACK);
+        this(outRadius, 0, 0);
     }
 
-    public Hexagon(double outRadius, double x, double y, Color color) {
-        super(6, outRadius, x, y, color);
+    public Hexagon(double outRadius, double x, double y) {
+        super(6, outRadius, x, y);
     }
 
-    public Hexagon(Hexagon base, TilingDirection dir, Color color) {
+    public Hexagon(Hexagon base, TilingDirection dir) {
         this(base.getOutRadius(),
-                base.getTilingXLoc(dir), base.getTilingYLoc(dir), color
+                base.getTilingXLoc(dir), base.getTilingYLoc(dir)
         );
     }
 
@@ -27,6 +25,18 @@ public class Hexagon extends RegularPolygon {
 
     private double getTilingYLoc(TilingDirection dir) {
         return dir.yBase * getInRadius() * 2 + getCenterY();
+    }
+
+    public boolean containsPoint(double x, double y) {
+        x = Math.abs(this.getCenterX() - x);
+        y = Math.abs(this.getCenterY() - y);
+        double out = this.getOutRadius();
+        double in = this.getInRadius();
+        if (2 * x <= out) {
+            return y <= in;
+        } else {
+            return y * out <= 2 * in * (out - x) && 2 * x >= out;
+        }
     }
 
     public enum TilingDirection {

@@ -10,12 +10,14 @@ import com.kpberry.spirals.drawers.Square;
 import com.kpberry.spirals.inclusion_criteria.Any;
 import com.kpberry.spirals.inclusion_criteria.GT_Zero;
 import com.kpberry.spirals.inclusion_criteria.LogN_LT_FC;
+import com.kpberry.spirals.inclusion_criteria.Odd;
 import com.kpberry.spirals.inclusion_criteria.Prime;
 import com.kpberry.spirals.preprocessors.IdentifyPrimeNumbers;
 import com.kpberry.spirals.preprocessors.IdentifyTriangularNumbers;
 import com.kpberry.spirals.preprocessors.InitializeFactorCounts;
 import com.kpberry.spirals.preprocessors.InitializeGoldbachCounts;
 import com.kpberry.util.Images;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,9 +26,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,7 +45,6 @@ import static com.kpberry.math.Primes.factorCount;
  */
 public class AppController implements Initializable {
     @FXML private Canvas spiralCanvas;
-    @FXML private Canvas textCanvas;
     @FXML private TextField spiralLengthField;
     @FXML private TextField elementSizeField;
     @FXML private TextField canvasHeightField;
@@ -53,6 +56,8 @@ public class AppController implements Initializable {
     @FXML private ListView<Consumer<Integer>> preprocessorsListView;
     @FXML private ListView<Predicate<Integer>> highlightCriteriaListView;
     @FXML private ListView<Color> colorsListView;
+    @FXML private Text infoText;
+    @FXML private ScrollPane spiralPane;
 
     private IntField intSpiralLengthField;
     private IntField intElementSizeField;
@@ -70,24 +75,22 @@ public class AppController implements Initializable {
         spiralCanvas.setWidth(intCanvasWidthField.getValue());
         spiralCanvas.setHeight(intCanvasHeightField.getValue());
 
-        GraphicsContext textGC = textCanvas.getGraphicsContext2D();
-        /*textCanvas.setOnMouseMoved(
+        GraphicsContext mainGC = spiralCanvas.getGraphicsContext2D();
+        spiralCanvas.setOnMouseClicked(
                 (mouse) -> {
-                    textGC.clearRect(
-                            0, 0, textCanvas.getWidth(), textCanvas.getHeight()
-                    );
-
-                    textGC.setFill(Color.WHITE);
-                    textGC.fillRect(
-                            mouse.getX(), mouse.getY(), 200, 200
-                    );
-
-                    textGC.setStroke(Color.BLACK);
-                    textGC.strokeText(
-                            "Hello!", mouse.getX() + 30, mouse.getY() + 30
-                    );
+                    Drawer drawer = drawerChoiceBox.getSelectionModel().getSelectedItem();
+                    Platform.runLater(() -> {
+                        int i = drawer.mousePositionToN(
+                                mainGC, intSpiralLengthField.getValue(),
+                                mouse.getX(), mouse.getY(),
+                                intElementSizeField.getValue(),
+                                inclusionCriteriaListView.getSelectionModel()
+                                        .getSelectedItem()
+                        );
+                        infoText.setText("Value: " + i);
+                    });
                 }
-        );*/
+        );
 
         colorSchemeChoiceBox.getItems().addAll(
                 new Binary(new Prime(), null, null),
@@ -112,7 +115,7 @@ public class AppController implements Initializable {
                 new Any(),
                 new GT_Zero(),
                 new LogN_LT_FC(),
-                new Prime()
+                new Odd()
         );
 
         inclusionCriteriaListView.getSelectionModel().select(0);
@@ -216,8 +219,10 @@ public class AppController implements Initializable {
 
         spiralCanvas.setHeight(canvasHeight);
         spiralCanvas.setWidth(canvasWidth);
+        spiralPane.setVvalue(0.5);
+        spiralPane.setHvalue(0.5);
         GraphicsContext gc = spiralCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvasWidth, canvasHeight);
-        spiral.draw(gc, spiralLength, elemSize);
+        Platform.runLater(() -> spiral.draw(gc, spiralLength, elemSize));
     }
 }

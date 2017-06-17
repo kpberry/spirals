@@ -10,4 +10,7 @@ import java.util.function.Predicate;
 public interface Drawer {
     void draw(GraphicsContext gc, int length, double elemSize,
               ColorScheme cs, Predicate<Integer> ic);
+
+    int mousePositionToN(GraphicsContext mainGC, int length, double x, double y,
+                         double elemSize, Predicate<Integer> ic);
 }

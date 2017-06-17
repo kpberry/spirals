@@ -15,32 +15,32 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<BorderPane prefHeight="734.0" prefWidth="1103.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kpberry.app.AppController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kpberry.app.AppController">
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <Menu mnemonicParsing="false" text="File">
                <MenuItem mnemonicParsing="false" text="Close" />
            </Menu>
            <Menu mnemonicParsing="false" text="Edit">
-               <MenuItem mnemonicParsing="false" text="Delete" />
+               <MenuItem mnemonicParsing="false" onAction="#drawSpiral" text="Draw Spiral">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
            </Menu>
            <Menu mnemonicParsing="false" text="Help">
                <MenuItem mnemonicParsing="false" text="About" />
            </Menu>
        </MenuBar>
    </top>
-   <bottom>
-       <AnchorPane BorderPane.alignment="CENTER" />
-   </bottom>
    <left>
       <TabPane BorderPane.alignment="CENTER">
          <tabs>
@@ -59,27 +59,14 @@
                        </rowConstraints>
                         <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Length" />
-                                <TextField fx:id="spiralLengthField" text="10000" GridPane.columnIndex="1" />
+                                <TextField fx:id="spiralLengthField" text="3000" GridPane.columnIndex="1" />
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Element Size" GridPane.rowIndex="1" />
-                                <TextField fx:id="elementSizeField" text="3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="elementSizeField" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Shape" GridPane.rowIndex="2" />
                            <ChoiceBox fx:id="drawerChoiceBox" prefHeight="25.0" prefWidth="396.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         </children>
                      </GridPane>
                      <Separator prefWidth="200.0" />
-                     <GridPane>
-                       <columnConstraints>
-                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                       </columnConstraints>
-                       <rowConstraints>
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                       </rowConstraints>
-                        <children>
-                           <Button mnemonicParsing="false" onAction="#saveCanvasAsImage" prefHeight="25.0" prefWidth="342.0" text="Save" />
-                           <Button fx:id="drawSpiralButton" defaultButton="true" mnemonicParsing="false" onAction="#drawSpiral" prefHeight="25.0" prefWidth="267.0" text="Draw Spiral" GridPane.columnIndex="1" />
-                        </children>
-                     </GridPane>
                          <padding>
                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                          </padding>
@@ -151,44 +138,53 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab text="Canvas">
-               <content>
-                  <VBox prefHeight="678.0" prefWidth="300.0" spacing="10.0">
-                     <children>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="1" />
-                              <TextField fx:id="canvasWidthField" text="1000" GridPane.columnIndex="1" />
-                              <TextField fx:id="canvasHeightField" text="1000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           </children>
-                        </GridPane>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </content>
-            </Tab>
          </tabs>
       </TabPane>
    </left>
    <center>
-         <ScrollPane BorderPane.alignment="CENTER">
-         <StackPane>
-            <children>
-                   <Canvas fx:id="spiralCanvas" height="1000.0" width="1000.0" />
-               <Canvas fx:id="textCanvas" height="1000.0" width="1000.0" />
-            </children>
-         </StackPane>
+         <ScrollPane fx:id="spiralPane" prefHeight="692.0" prefWidth="547.0" BorderPane.alignment="CENTER">
+             <Canvas fx:id="spiralCanvas" height="100.0" width="100.0" />
          </ScrollPane>
    </center>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="672.0" prefWidth="206.0" spacing="10.0" BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <children>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="1" />
+                  <TextField fx:id="canvasWidthField" text="3840" GridPane.columnIndex="1" />
+                  <TextField fx:id="canvasHeightField" text="2160" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <Separator prefWidth="200.0" />
+            <Button mnemonicParsing="false" onAction="#saveCanvasAsImage" prefHeight="25.0" prefWidth="461.0" text="Save" />
+            <Button fx:id="drawSpiralButton" defaultButton="true" mnemonicParsing="false" onAction="#drawSpiral" prefHeight="25.0" prefWidth="480.0" text="Draw Spiral" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+   <bottom>
+      <Text fx:id="infoText" fill="RED" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Cell Info" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+   </bottom>
  </BorderPane>
