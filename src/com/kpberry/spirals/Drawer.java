@@ -5,7 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public interface Drawer {
     void draw(GraphicsContext gc, int length, double elemSize,

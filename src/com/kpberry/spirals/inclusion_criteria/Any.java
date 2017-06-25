@@ -3,7 +3,8 @@ package com.kpberry.spirals.inclusion_criteria;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public class Any implements Predicate<Integer> {
     @Override

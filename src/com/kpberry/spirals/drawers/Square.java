@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public class Square implements Drawer {
     private enum Direction {
@@ -52,8 +53,8 @@ public class Square implements Drawer {
     }
 
     private class SquareIterator implements Iterator<Point2D> {
-        private int length;
-        private Predicate<Integer> ic;
+        private final int length;
+        private final Predicate<Integer> ic;
         private Direction direction;
         private int stride;
         private int strideIndex;
@@ -76,7 +77,7 @@ public class Square implements Drawer {
 
         @Override
         public boolean hasNext() {
-            return drawn < length;
+            return index < length;
         }
 
         @Override

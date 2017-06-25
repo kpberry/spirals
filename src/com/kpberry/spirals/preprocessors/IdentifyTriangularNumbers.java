@@ -5,7 +5,8 @@ import java.util.function.Consumer;
 import static com.kpberry.math.Triangular.updateTriangleNumbers;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public class IdentifyTriangularNumbers implements Consumer<Integer> {
     @Override

@@ -5,7 +5,8 @@ import java.util.function.Predicate;
 import static com.kpberry.math.Primes.isPrime;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public class Prime implements Predicate<Integer> {
     @Override

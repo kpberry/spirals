@@ -50,7 +50,7 @@ public class Goldbach {
         }
     }
 
-    public static void saveGoldbachIndices() throws IOException {
+    public static void saveGoldbachIndices() {
         saveGoldbachIndices(Paths.get(outFile));
     }
 

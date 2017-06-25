@@ -28,7 +28,9 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -37,6 +39,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static com.kpberry.math.Goldbach.goldbachIndex;
 import static com.kpberry.math.Primes.factorCount;
 
 /**
@@ -49,6 +52,7 @@ public class AppController implements Initializable {
     @FXML private TextField elementSizeField;
     @FXML private TextField canvasHeightField;
     @FXML private TextField canvasWidthField;
+    @FXML private Slider canvasScaleField;
     @FXML private ColorPicker newColorPicker;
     @FXML private ChoiceBox<ColorScheme> colorSchemeChoiceBox;
     @FXML private ChoiceBox<Drawer> drawerChoiceBox;
@@ -63,6 +67,7 @@ public class AppController implements Initializable {
     private IntField intElementSizeField;
     private IntField intCanvasHeightField;
     private IntField intCanvasWidthField;
+    private IntField intCanvasScaleField;
 
 
     @Override
@@ -87,14 +92,16 @@ public class AppController implements Initializable {
                                 inclusionCriteriaListView.getSelectionModel()
                                         .getSelectedItem()
                         );
-                        infoText.setText("Value: " + i);
+                        infoText.setText("Value: " + i + "\nProperty: " + goldbachIndex(i));
                     });
                 }
         );
 
+        ObservableList<Color> colors = colorsListView.getItems();
         colorSchemeChoiceBox.getItems().addAll(
-                new Binary(new Prime(), null, null),
-                new MultipleOfBase(n -> (double) factorCount(n), Color.RED)
+                new Binary(new Prime(), colors),
+                new MultipleOfBase(n -> (double) factorCount(n), colors),
+                new MultipleOfBase(n -> (double) goldbachIndex(n), colors)
         );
 
         colorSchemeChoiceBox.getSelectionModel().select(0);
@@ -133,20 +140,40 @@ public class AppController implements Initializable {
                 Color.RED,
                 Color.GREEN,
                 Color.BLUE,
-                Color.GRAY
+                Color.BLACK
         );
 
         colorsListView.getSelectionModel().select(0);
+        colorsListView.setCellFactory(c -> new ColorCell());
+        colorsListView.setTooltip(
+                new Tooltip("Click and drag to set the order of colors to " +
+                        "be used. The top color will be the first " +
+                        "used, the second will be the second, etc.")
+        );
+
+        spiralCanvas.setOnScroll(e -> {
+            if (e.isControlDown()) {
+                double mult = (e.getDeltaY() > 0) ? (1 / 0.95) : 0.95;
+                canvasScaleField.setValue(canvasScaleField.getValue() * mult);
+
+                e.consume();
+            }
+        });
+
+        canvasScaleField.valueProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    spiralCanvas.setScaleX(Math.pow(10, (newValue.doubleValue() - 5) / 4));
+                    spiralCanvas.setScaleY(Math.pow(10, (newValue.doubleValue() - 5) / 4));
+                }
+        );
     }
 
     //TODO finish UI update
 
     /**
      * features to add:
-     *      Inclusion criteria selector
      *      Highlight criteria selector
      *      Color multiplier selector
-     *      Color selector
      *      Base color schemes selector
      *      Base color schemes orderer
      */
@@ -160,6 +187,24 @@ public class AppController implements Initializable {
         if (!colorsListView.getItems().contains(newColorPicker.getValue())) {
             colorsListView.getItems().add(newColorPicker.getValue());
         }
+        colorsListView.refresh();
+    }
+
+    //TODO finish this
+    private ColorScheme getColorScheme() {
+        Predicate<Integer> highlightCriterion = new Prime();
+        ObservableList<Predicate<Integer>> highlightCriteria
+                = highlightCriteriaListView.getSelectionModel().getSelectedItems();
+        if (highlightCriteria.size() > 0) {
+            highlightCriterion = highlightCriteria.get(0);
+        }
+
+        ObservableList<Color> colors = colorsListView.getItems();
+
+        ColorScheme cs = colorSchemeChoiceBox.getValue();
+        cs.setColors(colors);
+
+        return cs;
     }
 
     @FXML public void drawSpiral() {
@@ -177,41 +222,15 @@ public class AppController implements Initializable {
             preprocessor = preprocessor.andThen(c);
         }
 
-        Predicate<Integer> highlightCriterion = new Prime();
-        ObservableList<Predicate<Integer>> highlightCriteria
-                = highlightCriteriaListView.getSelectionModel().getSelectedItems();
-        if (highlightCriteria.size() > 0) {
-            highlightCriterion = highlightCriteria.get(0);
-        }
+        ColorScheme cs = getColorScheme();
+        Drawer drawer = drawerChoiceBox.getValue();
 
-        Color primary = Color.RED;
-        Color secondary = Color.BLACK;
-        ObservableList<Color> colors = colorsListView.getSelectionModel().getSelectedItems();
-        if (colors.size() > 0) {
-            primary = colors.get(0);
-        }
-        if (colors.size() > 1) {
-            secondary = colors.get(1);
-        }
-
-        ColorScheme cs = colorSchemeChoiceBox.getValue();
-        if (cs instanceof Binary) {
-            cs = new Binary(highlightCriterion, primary, secondary);
-        } else {
-            cs = new MultipleOfBase(t -> (double) factorCount(t), primary);
-        }
-
-        Spiral spiral = new Spiral(
-                drawerChoiceBox.getValue(),
-                preprocessor,
-                cs,
-                inclusionCriteria
-        );
+        Spiral spiral = new Spiral(drawer, preprocessor, cs, inclusionCriteria);
 
         drawSpiral(spiral);
     }
 
-    public void drawSpiral(Spiral spiral) {
+    private void drawSpiral(Spiral spiral) {
         int spiralLength = intSpiralLengthField.getValue();
         int elemSize = intElementSizeField.getValue();
         int canvasHeight = intCanvasHeightField.getValue();
@@ -223,6 +242,10 @@ public class AppController implements Initializable {
         spiralPane.setHvalue(0.5);
         GraphicsContext gc = spiralCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvasWidth, canvasHeight);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(10);
+        gc.strokeRect(5, 5, canvasWidth - 5, canvasHeight - 5);
+        gc.setLineWidth(1);
         Platform.runLater(() -> spiral.draw(gc, spiralLength, elemSize));
     }
 }

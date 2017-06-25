@@ -11,38 +11,39 @@ import java.util.function.Function;
  * Created by Kevin on 6/11/2017 for Spirals for Spirals.
  *
  */
-public class MultipleOfBase implements ColorScheme {
-    private Color base;
+public class LERP implements ColorScheme {
+    private Color high, low;
     private final Function<Integer, Double> multiplier;
 
-    public MultipleOfBase(Function<Integer, Double> multiplier, List<Color> colors) {
+    public LERP(Function<Integer, Double> multiplier, List<Color> colors) {
         this.multiplier = multiplier;
         this.setColors(colors);
     }
 
     @Override
     public Optional<Color> getNullableColor(int value) {
-        double multiple = multiplier.apply(value);
-        double red = multiple * base.getRed();
-        red = red > 1 ? 1 : red;
-        double green = multiple * base.getGreen();
-        green = green > 1 ? 1 : green;
-        double blue = multiple * base.getBlue();
-        blue = blue > 1 ? 1 : blue;
-        return Optional.of(new Color(red, green, blue, 1));
+        return Optional.of(
+                low.interpolate(high, Math.min(multiplier.apply(value), 1))
+        );
     }
 
     @Override
     public String toString() {
-        return "Multiple of Base: " + base;
+        return "LERP";
     }
 
     @Override
     public void setColors(List<Color> colors) {
         if (colors.size() > 0) {
-            base = colors.get(0);
+            high = colors.get(0);
         } else {
-            base = Color.BLACK;
+            high = Color.BLACK;
+        }
+
+        if (colors.size() > 1) {
+            low = colors.get(1);
+        } else {
+            low = Color.BLACK;
         }
     }
 }

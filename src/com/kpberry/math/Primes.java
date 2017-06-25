@@ -10,7 +10,7 @@ import java.util.List;
 public class Primes {
     private static int[] factorCounts = new int[0];
     private static int[] primeFactorCounts = new int[0];
-    private static List<Integer> primes = new ArrayList<>();
+    private static final List<Integer> primes = new ArrayList<>();
 
     public static boolean isPrime(int n) {
         if (n >= factorCounts.length) {
@@ -63,11 +63,6 @@ public class Primes {
 
     public static List<Integer> getPrimes() {
         return primes;
-    }
-
-    public static void main(String[] args) {
-        updatePrimeFactorCounts(1000);
-        System.out.println(primes);
     }
 
     public static int primeFactorCount(int n) {

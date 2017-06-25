@@ -5,7 +5,8 @@ import java.util.function.Consumer;
 import static com.kpberry.math.Primes.updateFactorCounts;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public class IdentifyPrimeNumbers implements Consumer<Integer> {
     @Override

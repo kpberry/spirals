@@ -12,6 +12,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -19,6 +20,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -42,37 +44,75 @@
        </MenuBar>
    </top>
    <left>
-      <TabPane BorderPane.alignment="CENTER">
+         <VBox alignment="TOP_CENTER" minWidth="200.0" prefHeight="701.0" prefWidth="250.0" spacing="10.0">
+             <GridPane>
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Length" />
+                 <TextField fx:id="spiralLengthField" text="3000" GridPane.columnIndex="1" />
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Element Size" GridPane.rowIndex="1" />
+                 <TextField fx:id="elementSizeField" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Shape" GridPane.rowIndex="2" />
+                 <ChoiceBox fx:id="drawerChoiceBox" prefHeight="25.0" prefWidth="396.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+             </GridPane>
+         <Separator prefWidth="200.0" />
+         <GridPane>
+            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" />
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="1" />
+               <TextField fx:id="canvasWidthField" text="3840" GridPane.columnIndex="1" />
+               <TextField fx:id="canvasHeightField" text="2160" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Scale" GridPane.rowIndex="2" />
+               <Slider fx:id="canvasScaleField" max="9.0" min="1.0" value="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+         </GridPane>
+         <Separator prefWidth="200.0" />
+         <Text fx:id="infoText" fill="RED" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Cell Info" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Text>
+             <padding>
+                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+             </padding>
+         </VBox>
+   </left>
+   <center>
+         <ScrollPane fx:id="spiralPane" prefHeight="692.0" prefWidth="547.0" BorderPane.alignment="CENTER">
+             <Canvas fx:id="spiralCanvas" height="100.0" width="100.0" />
+         </ScrollPane>
+   </center>
+   <bottom>
+       <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+           <BorderPane.margin>
+               <Insets />
+           </BorderPane.margin>
+           <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+           </padding>
+           <Button defaultButton="true" mnemonicParsing="false" onAction="#drawSpiral" prefHeight="25.0" prefWidth="200.0" text="Draw Spiral" />
+           <Button mnemonicParsing="false" onAction="#saveCanvasAsImage" prefHeight="25.0" prefWidth="200.0" text="Save" />
+       </HBox>
+   </bottom>
+   <right>
+      <TabPane prefHeight="200.0" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
-            <Tab text="Spiral">
-               <content>
-                     <VBox alignment="TOP_CENTER" minWidth="300.0" prefHeight="707.0" prefWidth="330.0" spacing="10.0">
-                     <GridPane>
-                       <columnConstraints>
-                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                       </columnConstraints>
-                       <rowConstraints>
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                       </rowConstraints>
-                        <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Length" />
-                                <TextField fx:id="spiralLengthField" text="3000" GridPane.columnIndex="1" />
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Element Size" GridPane.rowIndex="1" />
-                                <TextField fx:id="elementSizeField" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Shape" GridPane.rowIndex="2" />
-                           <ChoiceBox fx:id="drawerChoiceBox" prefHeight="25.0" prefWidth="396.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        </children>
-                     </GridPane>
-                     <Separator prefWidth="200.0" />
-                         <padding>
-                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                         </padding>
-                     </VBox>
-               </content>
-            </Tab>
             <Tab text="Math">
                <content>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -140,51 +180,5 @@
             </Tab>
          </tabs>
       </TabPane>
-   </left>
-   <center>
-         <ScrollPane fx:id="spiralPane" prefHeight="692.0" prefWidth="547.0" BorderPane.alignment="CENTER">
-             <Canvas fx:id="spiralCanvas" height="100.0" width="100.0" />
-         </ScrollPane>
-   </center>
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="672.0" prefWidth="206.0" spacing="10.0" BorderPane.alignment="TOP_CENTER">
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </BorderPane.margin>
-         <children>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Width" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Canvas Height" GridPane.rowIndex="1" />
-                  <TextField fx:id="canvasWidthField" text="3840" GridPane.columnIndex="1" />
-                  <TextField fx:id="canvasHeightField" text="2160" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-            <Separator prefWidth="200.0" />
-            <Button mnemonicParsing="false" onAction="#saveCanvasAsImage" prefHeight="25.0" prefWidth="461.0" text="Save" />
-            <Button fx:id="drawSpiralButton" defaultButton="true" mnemonicParsing="false" onAction="#drawSpiral" prefHeight="25.0" prefWidth="480.0" text="Draw Spiral" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
    </right>
-   <bottom>
-      <Text fx:id="infoText" fill="RED" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Cell Info" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Text>
-   </bottom>
  </BorderPane>

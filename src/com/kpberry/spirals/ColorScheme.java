@@ -3,6 +3,7 @@ package com.kpberry.spirals;
 import com.sun.istack.internal.NotNull;
 import javafx.scene.paint.Color;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,5 +18,8 @@ public interface ColorScheme {
     default Color getColor(int value) {
         Optional<Color> result = getNullableColor(value);
         return result.orElse(Color.BLACK);
+    }
+
+    default void setColors(List<Color> colors) {
     }
 }

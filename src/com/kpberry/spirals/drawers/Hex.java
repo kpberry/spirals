@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ *
  */
 public class Hex implements Drawer {
     public int mousePositionToN(GraphicsContext gc, int length,
@@ -47,17 +48,16 @@ public class Hex implements Drawer {
     }
 
     private class HexIterator implements Iterator<Hexagon> {
-        private int length;
-        private Predicate<Integer> ic;
+        private final int length;
+        private final Predicate<Integer> ic;
         private Hexagon.TilingDirection direction;
         private int stride;
         private int strideIndex;
         private int index;
         private int value;
-        private int drawn;
         private Hexagon cur;
 
-        public HexIterator(int length, Predicate<Integer> ic, Hexagon base) {
+        HexIterator(int length, Predicate<Integer> ic, Hexagon base) {
             this.length = length;
             this.ic = ic;
             direction = Hexagon.TilingDirection.UP_RIGHT;
@@ -66,12 +66,11 @@ public class Hex implements Drawer {
             cur = base;
             index = 0;
             value = 0;
-            drawn = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return drawn < length;
+            return index < length;
         }
 
         @Override
@@ -102,13 +101,12 @@ public class Hex implements Drawer {
 
             strideIndex++;
             index++;
-            drawn++;
             return result;
         }
+    }
 
-        @Override
-        public String toString() {
-            return "Hex";
-        }
+    @Override
+    public String toString() {
+        return "Hex";
     }
 }
