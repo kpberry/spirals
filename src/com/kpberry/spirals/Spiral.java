@@ -16,8 +16,7 @@ public class Spiral {
     private final Predicate<Integer> inclusionCriterion;
 
     public Spiral(Drawer drawer, Consumer<Integer> preprocessor,
-                  ColorScheme colorScheme,
-                  Predicate<Integer> inclusionCriterion) {
+                  ColorScheme colorScheme, Predicate<Integer> inclusionCriterion) {
         this.drawer = drawer;
         this.preprocessor = preprocessor;
         this.colorScheme = colorScheme;

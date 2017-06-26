@@ -143,10 +143,15 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color Scheme" GridPane.rowIndex="1" />
-                              <ChoiceBox fx:id="colorSchemeChoiceBox" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Highlight Mode" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="highlightModeChoiceBox" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
+                        <Separator prefWidth="200.0" />
+                        <Label layoutX="64.0" layoutY="302.0" text="Selected Highlight Criteria" />
+                        <ListView fx:id="selectedHighlighterListView" layoutX="20.0" layoutY="329.0" prefHeight="139.0" prefWidth="310.0" />
+                        <Label text="Available Highlight Criteria" />
+                        <ListView fx:id="highlighterListView" layoutX="20.0" layoutY="147.0" prefHeight="139.0" prefWidth="310.0" />
                         <Separator prefWidth="200.0" />
                         <Label text="Colors" />
                         <ListView fx:id="colorsListView" prefHeight="139.0" prefWidth="310.0" />
@@ -168,9 +173,6 @@
                               </ColorPicker>
                            </children>
                         </GridPane>
-                        <Separator prefWidth="200.0" />
-                        <Label text="Highlight Criteria" />
-                        <ListView fx:id="highlightCriteriaListView" layoutX="20.0" layoutY="147.0" prefHeight="139.0" prefWidth="310.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

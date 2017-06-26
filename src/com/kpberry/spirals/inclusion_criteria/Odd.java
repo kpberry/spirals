@@ -1,12 +1,14 @@
 package com.kpberry.spirals.inclusion_criteria;
 
-import java.util.function.Predicate;
+import com.kpberry.spirals.InclusionCriterion;
+
+import java.util.function.Consumer;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals for Spirals.
  *
  */
-public class Odd implements Predicate<Integer> {
+public class Odd implements InclusionCriterion {
     @Override
     public boolean test(Integer integer) {
         return (integer & 0x1) == 1;
@@ -15,5 +17,10 @@ public class Odd implements Predicate<Integer> {
     @Override
     public String toString() {
         return "Odd";
+    }
+
+    @Override
+    public Consumer<Integer> getPreprocessor() {
+        return i -> {};
     }
 }

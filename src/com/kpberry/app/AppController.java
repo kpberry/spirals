@@ -2,16 +2,23 @@ package com.kpberry.app;
 
 import com.kpberry.spirals.ColorScheme;
 import com.kpberry.spirals.Drawer;
+import com.kpberry.spirals.HighlightMode;
+import com.kpberry.spirals.Highlighter;
+import com.kpberry.spirals.InclusionCriterion;
 import com.kpberry.spirals.Spiral;
-import com.kpberry.spirals.color_schemes.Binary;
-import com.kpberry.spirals.color_schemes.MultipleOfBase;
 import com.kpberry.spirals.drawers.Hex;
 import com.kpberry.spirals.drawers.Square;
+import com.kpberry.spirals.highlight_criteria.FactorCount;
+import com.kpberry.spirals.highlight_criteria.GoldbachCount;
+import com.kpberry.spirals.highlight_criteria.IsPrime;
+import com.kpberry.spirals.highlight_criteria.IsTriangular;
+import com.kpberry.spirals.highlight_modes.Binary;
+import com.kpberry.spirals.highlight_modes.LERP;
+import com.kpberry.spirals.highlight_modes.MultipleOfBase;
 import com.kpberry.spirals.inclusion_criteria.Any;
 import com.kpberry.spirals.inclusion_criteria.GT_Zero;
 import com.kpberry.spirals.inclusion_criteria.LogN_LT_FC;
 import com.kpberry.spirals.inclusion_criteria.Odd;
-import com.kpberry.spirals.inclusion_criteria.Prime;
 import com.kpberry.spirals.preprocessors.IdentifyPrimeNumbers;
 import com.kpberry.spirals.preprocessors.IdentifyTriangularNumbers;
 import com.kpberry.spirals.preprocessors.InitializeFactorCounts;
@@ -40,7 +47,6 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static com.kpberry.math.Goldbach.goldbachIndex;
-import static com.kpberry.math.Primes.factorCount;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.
@@ -54,11 +60,12 @@ public class AppController implements Initializable {
     @FXML private TextField canvasWidthField;
     @FXML private Slider canvasScaleField;
     @FXML private ColorPicker newColorPicker;
-    @FXML private ChoiceBox<ColorScheme> colorSchemeChoiceBox;
+    @FXML private ChoiceBox<HighlightMode> highlightModeChoiceBox;
     @FXML private ChoiceBox<Drawer> drawerChoiceBox;
-    @FXML private ListView<Predicate<Integer>> inclusionCriteriaListView;
+    @FXML private ListView<InclusionCriterion> inclusionCriteriaListView;
     @FXML private ListView<Consumer<Integer>> preprocessorsListView;
-    @FXML private ListView<Predicate<Integer>> highlightCriteriaListView;
+    @FXML private ListView<Highlighter> highlighterListView;
+    @FXML private ListView<Highlighter> selectedHighlighterListView;
     @FXML private ListView<Color> colorsListView;
     @FXML private Text infoText;
     @FXML private ScrollPane spiralPane;
@@ -66,7 +73,6 @@ public class AppController implements Initializable {
     private IntField intSpiralLengthField;
     private IntField intElementSizeField;
     private IntField intCanvasHeightField;
-    private IntField intCanvasWidthField;
     private IntField intCanvasScaleField;
 
 
@@ -75,9 +81,9 @@ public class AppController implements Initializable {
         intSpiralLengthField = new IntField(spiralLengthField);
         intElementSizeField = new IntField(elementSizeField);
         intCanvasHeightField = new IntField(canvasHeightField);
-        intCanvasWidthField = new IntField(canvasWidthField);
+        intCanvasScaleField = new IntField(canvasWidthField);
 
-        spiralCanvas.setWidth(intCanvasWidthField.getValue());
+        spiralCanvas.setWidth(intCanvasScaleField.getValue());
         spiralCanvas.setHeight(intCanvasHeightField.getValue());
 
         GraphicsContext mainGC = spiralCanvas.getGraphicsContext2D();
@@ -97,18 +103,14 @@ public class AppController implements Initializable {
                 }
         );
 
-        ObservableList<Color> colors = colorsListView.getItems();
-        colorSchemeChoiceBox.getItems().addAll(
-                new Binary(new Prime(), colors),
-                new MultipleOfBase(n -> (double) factorCount(n), colors),
-                new MultipleOfBase(n -> (double) goldbachIndex(n), colors)
+        highlightModeChoiceBox.getItems().addAll(
+                new Binary(), new LERP(), new MultipleOfBase()
         );
 
-        colorSchemeChoiceBox.getSelectionModel().select(0);
+        highlightModeChoiceBox.getSelectionModel().select(0);
 
         drawerChoiceBox.getItems().addAll(
-                new Square(),
-                new Hex()
+                new Square(), new Hex()
         );
 
         drawerChoiceBox.getSelectionModel().select(0);
@@ -119,13 +121,39 @@ public class AppController implements Initializable {
                 .setSelectionMode(SelectionMode.MULTIPLE);
 
         inclusionCriteriaListView.getItems().addAll(
-                new Any(),
-                new GT_Zero(),
-                new LogN_LT_FC(),
-                new Odd()
+                new Any(), new GT_Zero(), new LogN_LT_FC(), new Odd()
         );
 
         inclusionCriteriaListView.getSelectionModel().select(0);
+
+        highlighterListView.getItems().addAll(
+                new FactorCount(), new GoldbachCount(), new IsPrime(),
+                new IsTriangular()
+        );
+        highlighterListView.setCellFactory((c) -> new DragCell<>());
+
+        highlighterListView.setOnMouseClicked((me) -> {
+            if (me.getClickCount() == 2) {
+                Highlighter selected = highlighterListView
+                        .getSelectionModel().getSelectedItem();
+                if (selected != null
+                        && !selectedHighlighterListView.getItems()
+                            .contains(selected)) {
+                    selectedHighlighterListView.getItems().add(selected);
+                }
+            }
+        });
+
+        selectedHighlighterListView.setOnMouseClicked((me) -> {
+            if (me.getClickCount() == 2) {
+                Highlighter selected = selectedHighlighterListView
+                        .getSelectionModel().getSelectedItem();
+                if (selected != null) {
+                    selectedHighlighterListView.getItems().remove(selected);
+                }
+            }
+        });
+        selectedHighlighterListView.setCellFactory((e) -> new DragCell<>());
 
         preprocessorsListView.getItems().addAll(
                 new InitializeFactorCounts(),
@@ -172,10 +200,7 @@ public class AppController implements Initializable {
 
     /**
      * features to add:
-     *      Highlight criteria selector
      *      Color multiplier selector
-     *      Base color schemes selector
-     *      Base color schemes orderer
      */
     //TODO add tooltip for each hexagon to show its rgb and which rules it follows
 
@@ -191,28 +216,27 @@ public class AppController implements Initializable {
     }
 
     //TODO finish this
-    private ColorScheme getColorScheme() {
-        Predicate<Integer> highlightCriterion = new Prime();
-        ObservableList<Predicate<Integer>> highlightCriteria
-                = highlightCriteriaListView.getSelectionModel().getSelectedItems();
-        if (highlightCriteria.size() > 0) {
-            highlightCriterion = highlightCriteria.get(0);
-        }
+    private ColorScheme getColorScheme(int max) {
+        ObservableList<Highlighter> highlighters
+                = selectedHighlighterListView.
+                getSelectionModel().getSelectedItems();
+
+
 
         ObservableList<Color> colors = colorsListView.getItems();
 
-        ColorScheme cs = colorSchemeChoiceBox.getValue();
-        cs.setColors(colors);
+        HighlightMode hm = highlightModeChoiceBox.getValue();
+        ColorScheme cs = hm.getColorScheme(new FactorCount(), colors, max);
 
         return cs;
     }
 
     @FXML public void drawSpiral() {
-        Predicate<Integer> inclusionCriteria = (n) -> true;
-        for (Predicate<Integer> p
+        Predicate<Integer> inclusionCriteria = new Any();
+        for (InclusionCriterion i
                 : inclusionCriteriaListView.getSelectionModel()
                 .getSelectedItems()) {
-            inclusionCriteria = inclusionCriteria.and(p);
+            inclusionCriteria = inclusionCriteria.and(i);
         }
 
         Consumer<Integer> preprocessor = (n) -> {};
@@ -222,7 +246,7 @@ public class AppController implements Initializable {
             preprocessor = preprocessor.andThen(c);
         }
 
-        ColorScheme cs = getColorScheme();
+        ColorScheme cs = getColorScheme(intSpiralLengthField.getValue());
         Drawer drawer = drawerChoiceBox.getValue();
 
         Spiral spiral = new Spiral(drawer, preprocessor, cs, inclusionCriteria);
@@ -234,7 +258,7 @@ public class AppController implements Initializable {
         int spiralLength = intSpiralLengthField.getValue();
         int elemSize = intElementSizeField.getValue();
         int canvasHeight = intCanvasHeightField.getValue();
-        int canvasWidth = intCanvasWidthField.getValue();
+        int canvasWidth = intCanvasScaleField.getValue();
 
         spiralCanvas.setHeight(canvasHeight);
         spiralCanvas.setWidth(canvasWidth);
