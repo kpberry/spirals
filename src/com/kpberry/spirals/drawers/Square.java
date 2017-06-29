@@ -1,7 +1,7 @@
 package com.kpberry.spirals.drawers;
 
-import com.kpberry.spirals.ColorScheme;
-import com.kpberry.spirals.Drawer;
+import com.kpberry.spirals.base.ColorScheme;
+import com.kpberry.spirals.base.Drawer;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 

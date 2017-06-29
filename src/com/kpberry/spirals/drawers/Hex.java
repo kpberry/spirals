@@ -1,8 +1,8 @@
 package com.kpberry.spirals.drawers;
 
-import com.kpberry.math.Hexagon;
-import com.kpberry.spirals.ColorScheme;
-import com.kpberry.spirals.Drawer;
+import com.kpberry.math.shapes.Hexagon;
+import com.kpberry.spirals.base.ColorScheme;
+import com.kpberry.spirals.base.Drawer;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.Iterator;

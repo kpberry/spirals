@@ -1,7 +1,6 @@
 package com.kpberry.app;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -12,16 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kevin on 6/25/2017 for Spirals.
+ * Created by Kevin on 6/25/2017 for Spirals for Spirals.
+ *
  */
 public class DragCell<T> extends ListCell<T> {
-    private static Map<String, Object> clipboard = new HashMap<>();
-
-
+    private static final Map<String, Object> clipboard = new HashMap<>();
 
     public DragCell() {
-        setContentDisplay(ContentDisplay.TEXT_ONLY);
-
         ListCell thisCell = this;
 
         setOnDragDetected(event -> {
@@ -79,7 +75,8 @@ public class DragCell<T> extends ListCell<T> {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                T other = (T) clipboard.get(db.getString());
+                @SuppressWarnings("unchecked") T other
+                        = (T) clipboard.get(db.getString());
                 T thisItem = getItem();
 
                 ObservableList<T> items = getListView().getItems();
@@ -117,12 +114,6 @@ public class DragCell<T> extends ListCell<T> {
 
     @Override
     protected void updateItem(T item, boolean empty) {
-        if (item == null) {
-            return;
-        }
-
         super.updateItem(item, empty);
-        setText(item.toString());
-        //setFont(Font.font("System", FontWeight.BOLD, 12));
     }
 }
