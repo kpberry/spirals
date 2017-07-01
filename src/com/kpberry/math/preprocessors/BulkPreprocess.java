@@ -1,7 +1,7 @@
 package com.kpberry.math.preprocessors;
 
-import com.kpberry.math.Preprocessor;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.value.ObservableValue;
 
 import java.util.Collection;
 
@@ -20,7 +20,7 @@ public class BulkPreprocess extends Preprocessor {
         preprocessors.parallelStream().forEach(p -> p.accept(integer));
     }
 
-    public DoubleBinding progressBinding() {
+    public ObservableValue progressBinding() {
         DoubleBinding result = new DoubleBinding() {
             @Override
             protected double computeValue() {

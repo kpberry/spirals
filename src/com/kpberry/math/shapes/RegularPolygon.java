@@ -4,7 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals for Spirals for Spirals.
+ *
  */
 public class RegularPolygon {
     private final int numPoints;
@@ -12,7 +13,8 @@ public class RegularPolygon {
     private final double inRadius;
     private final double[] xPoints;
     private final double[] yPoints;
-    private double centerX, centerY;
+    private double centerX;
+    private double centerY;
 
     public RegularPolygon(int numPoints, double outRadius) {
         this(numPoints, outRadius, 0, 0);
@@ -27,12 +29,12 @@ public class RegularPolygon {
         this.centerX = x;
         this.centerY = y;
 
-        double theta = Math.PI * 2 / numPoints;
+        double theta = (Math.PI * 2) / numPoints;
         this.inRadius = Math.cos(theta / 2) * outRadius;
         for (int i = 0; i < numPoints; i++) {
             double curTheta = theta * i;
-            xPoints[i] = Math.cos(curTheta) * outRadius + x;
-            yPoints[i] = Math.sin(curTheta) * outRadius + y;
+            xPoints[i] = (Math.cos(curTheta) * outRadius) + x;
+            yPoints[i] = (Math.sin(curTheta) * outRadius) + y;
         }
     }
 

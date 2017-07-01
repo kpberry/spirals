@@ -39,7 +39,7 @@ public class DataLogging {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-        if (!dirIndices.containsKey(dirName) || dirIndices.get(dirName) == 0) {
+        if (!dirIndices.containsKey(dirName) || (dirIndices.get(dirName) == 0)) {
             try (DirectoryStream<Path> dir = Files.newDirectoryStream(targetDir)) {
                 int max = 0;
                 for (Path p : dir) {
@@ -85,8 +85,8 @@ public class DataLogging {
     public static Chart getBarHistogram(double[] data, double[] ranges) {
         double[] rangeCounts = new double[ranges.length - 1];
         for (double aData : data) {
-            for (int j = 0; j < ranges.length - 1; j++) {
-                if (aData >= ranges[j] && aData < ranges[j + 1]) {
+            for (int j = 0; j < (ranges.length - 1); j++) {
+                if ((aData >= ranges[j]) && (aData < ranges[j + 1])) {
                     rangeCounts[j]++;
                 }
             }
@@ -96,7 +96,7 @@ public class DataLogging {
         NumberAxis yAxis = new NumberAxis();
         BarChart<String, Number> result = new BarChart<>(xAxis, yAxis);
 
-        for (int i = 0; i < ranges.length - 1; i++) {
+        for (int i = 0; i < (ranges.length - 1); i++) {
             XYChart.Series<String, Number> s = new XYChart.Series<>();
             s.setName("[" + ranges[i] + ", " + ranges[i + 1] + ")");
             s.getData().add(new XYChart.Data<>("", rangeCounts[i]));
@@ -108,8 +108,8 @@ public class DataLogging {
     public static Chart getLineHistogram(double[] data, double[] ranges) {
         double[] rangeCounts = new double[ranges.length - 1];
         for (double aData : data) {
-            for (int j = 0; j < ranges.length - 1; j++) {
-                if (aData >= ranges[j] && aData < ranges[j + 1]) {
+            for (int j = 0; j < (ranges.length - 1); j++) {
+                if ((aData >= ranges[j]) && (aData < ranges[j + 1])) {
                     rangeCounts[j]++;
                 }
             }
@@ -121,7 +121,7 @@ public class DataLogging {
 
         XYChart.Series<Number, Number> s = new XYChart.Series<>();
         result.getData().add(s);
-        for (int i = 0; i < ranges.length - 1; i++) {
+        for (int i = 0; i < (ranges.length - 1); i++) {
             s.setName("[" + ranges[i] + ", " + ranges[i + 1] + ")");
             s.getData().add(new XYChart.Data<>(ranges[i], rangeCounts[i]));
         }
@@ -131,7 +131,7 @@ public class DataLogging {
     public static Chart getLineCDF(double[] data, double[] ranges) {
         double[] rangeCounts = new double[ranges.length - 1];
         for (double aData : data) {
-            for (int j = 0; j < ranges.length - 1; j++) {
+            for (int j = 0; j < (ranges.length - 1); j++) {
                 if (aData <= ranges[j]) {
                     rangeCounts[j]++;
                 }
@@ -148,7 +148,7 @@ public class DataLogging {
 
         XYChart.Series<Number, Number> s = new XYChart.Series<>();
         result.getData().add(s);
-        for (int i = 0; i < ranges.length - 1; i++) {
+        for (int i = 0; i < (ranges.length - 1); i++) {
             s.setName("[" + ranges[i] + ", " + ranges[i + 1] + ")");
             s.getData().add(new XYChart.Data<>(ranges[i], rangeCounts[i]));
         }

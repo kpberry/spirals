@@ -1,8 +1,7 @@
 package com.kpberry.math.inclusion_criteria;
 
-import com.kpberry.math.InclusionCriterion;
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.preprocessors.Nothing;
+import com.kpberry.math.preprocessors.Preprocessor;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals for Spirals.

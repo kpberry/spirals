@@ -1,5 +1,6 @@
-package com.kpberry.spirals.base;
+package com.kpberry.spirals.drawers;
 
+import com.kpberry.spirals.color_schemes.ColorScheme;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.function.Predicate;

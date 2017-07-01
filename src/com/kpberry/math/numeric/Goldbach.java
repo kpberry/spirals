@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class Goldbach {
     private static int[] goldbachIndices = new int[0];
-    private static String outFile = "out/goldbach_indices.csv";
+    private static final String outFile = "out/goldbach_indices.csv";
     private static final DoubleProperty progress = new SimpleDoubleProperty(0);
 
     /**
@@ -33,7 +33,7 @@ public class Goldbach {
         return goldbachIndices[n];
     }
 
-    synchronized public static void updateGoldbachIndices(int n) {
+    public static synchronized void updateGoldbachIndices(int n) {
         //TODO read goldbach indices from the file
         if (n >= goldbachIndices.length) {
             goldbachIndices = new int[n];
@@ -46,8 +46,9 @@ public class Goldbach {
             for (int i = 0; i < n; i++) {
                 int index = 0;
                 int cur = 0;
-                while (cur < i && index < primes.size()) {
-                    cur = primes.get(index++);
+                while ((cur < i) && (index < primes.size())) {
+                    cur = primes.get(index);
+                    index++;
                     if (Primes.isPrime(i - cur)) {
                         goldbachIndices[i]++;
                     }
@@ -88,7 +89,8 @@ public class Goldbach {
                 goldbachIndices = new int[sc.nextInt()];
                 int i = 0;
                 while (sc.hasNextInt()) {
-                    goldbachIndices[i++] = sc.nextInt();
+                    goldbachIndices[i] = sc.nextInt();
+                    i++;
                 }
             }
         }

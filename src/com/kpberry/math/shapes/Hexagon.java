@@ -20,11 +20,11 @@ public class Hexagon extends RegularPolygon {
     }
 
     private double getTilingXLoc(TilingDirection dir) {
-        return dir.xBase * getInRadius() * 2 + getCenterX();
+        return (dir.xBase * getInRadius() * 2) + getCenterX();
     }
 
     private double getTilingYLoc(TilingDirection dir) {
-        return dir.yBase * getInRadius() * 2 + getCenterY();
+        return (dir.yBase * getInRadius() * 2) + getCenterY();
     }
 
     public boolean containsPoint(double x, double y) {
@@ -32,10 +32,10 @@ public class Hexagon extends RegularPolygon {
         y = Math.abs(this.getCenterY() - y);
         double out = this.getOutRadius();
         double in = this.getInRadius();
-        if (2 * x <= out) {
+        if ((2 * x) <= out) {
             return y <= in;
         } else {
-            return y * out <= 2 * in * (out - x) && 2 * x >= out;
+            return ((y * out) <= (2 * in * (out - x))) && ((2 * x) >= out);
         }
     }
 

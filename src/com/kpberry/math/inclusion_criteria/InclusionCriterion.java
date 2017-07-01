@@ -1,6 +1,7 @@
-package com.kpberry.math;
+package com.kpberry.math.inclusion_criteria;
 
 import com.kpberry.math.preprocessors.Nothing;
+import com.kpberry.math.preprocessors.Preprocessor;
 
 import java.util.function.Predicate;
 

@@ -36,7 +36,7 @@ public class DragCell<T> extends ListCell<T> {
         });
 
         setOnDragOver(event -> {
-            if (event.getGestureSource() != thisCell
+            if ((event.getGestureSource() != thisCell)
                     && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
             }
@@ -49,7 +49,7 @@ public class DragCell<T> extends ListCell<T> {
                 return;
             }
 
-            if (event.getGestureSource() != thisCell
+            if ((event.getGestureSource() != thisCell)
                     && event.getDragboard().hasString()) {
                 thisCell.setTextFill(Color.GRAY);
             }
@@ -80,14 +80,15 @@ public class DragCell<T> extends ListCell<T> {
                 T thisItem = getItem();
 
                 ObservableList<T> items = getListView().getItems();
-                int otherIndex = -1, thisItemIndex = -1;
-                for (int i = 0; i < items.size() && otherIndex == -1; i++) {
+                int otherIndex = -1;
+                int thisItemIndex = -1;
+                for (int i = 0; (i < items.size()) && (otherIndex == -1); i++) {
                     if (items.get(i).toString().equals(other.toString())) {
                         otherIndex = i;
                     }
                 }
 
-                for (int i = 0; i < items.size() && thisItemIndex == -1; i++) {
+                for (int i = 0; (i < items.size()) && (thisItemIndex == -1); i++) {
                     if (items.get(i).toString().equals(thisItem.toString())) {
                         thisItemIndex = i;
                     }

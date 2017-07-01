@@ -1,6 +1,5 @@
 package com.kpberry.math.preprocessors;
 
-import com.kpberry.math.Preprocessor;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 

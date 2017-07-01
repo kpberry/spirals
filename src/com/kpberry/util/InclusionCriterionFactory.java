@@ -1,6 +1,6 @@
 package com.kpberry.util;
 
-import com.kpberry.math.InclusionCriterion;
+import com.kpberry.math.inclusion_criteria.InclusionCriterion;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,28 +14,30 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/29/2017 for Spirals.
+ * Created by Kevin on 6/29/2017 for Spirals for Spirals.
+ *
  */
+@SuppressWarnings("unchecked")
 public class InclusionCriterionFactory {
     private final String expr;
     private final String variable;
     private Class<?> compiledClass;
     private String compileErrors;
-    private InclusionCriterion instance;
+    private final InclusionCriterion instance;
 
     public InclusionCriterionFactory(String expr, String variable)
             throws NoSuchMethodException, IOException, ClassNotFoundException,
             IllegalAccessException, InstantiationException {
         this.expr = expr;
         this.compileErrors = "";
-        if (variable == null || variable.matches("\\s*")) {
+        if ((variable == null) || variable.matches("\\s*")) {
             this.variable = "n";
         } else {
             this.variable = variable;
         }
         this.compile();
         this.instance = new InclusionCriterion() {
-            private Predicate<Integer> instance
+            private final Predicate<Integer> instance
                     = (Predicate<Integer>) compiledClass.newInstance();
 
             @Override
@@ -50,7 +52,7 @@ public class InclusionCriterionFactory {
         };
     }
 
-    public void compile() throws NoSuchMethodException,
+    public final void compile() throws NoSuchMethodException,
             IOException, ClassNotFoundException {
         String name = "test";
         Path file = Files.createTempFile(name, ".java");
@@ -76,7 +78,7 @@ public class InclusionCriterionFactory {
         this.compileErrors = new String(
                 errorStream.toByteArray(), StandardCharsets.UTF_8
         ).replace(fileName, name);
-        if (this.compileErrors.length() > 0) {
+        if (!this.compileErrors.isEmpty()) {
             System.err.println(this.compileErrors);
         }
 
@@ -94,5 +96,9 @@ public class InclusionCriterionFactory {
 
     public String getCompileErrors() {
         return compileErrors;
+    }
+
+    public boolean hasCompileErrors() {
+        return !compileErrors.isEmpty();
     }
 }

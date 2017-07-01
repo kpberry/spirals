@@ -1,6 +1,5 @@
 package com.kpberry.math.preprocessors;
 
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.numeric.Collatz;
 import javafx.beans.property.DoubleProperty;
 

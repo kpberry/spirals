@@ -13,7 +13,7 @@ public class IntField {
         this.source = source;
         this.source.textProperty().addListener(
                 (obs, oldValue, newValue) -> {
-                    if (source.getText().length() == 0) {
+                    if (source.getText().isEmpty()) {
                         //do nothing if the text is empty
                         return;
                     }
@@ -36,7 +36,7 @@ public class IntField {
 
     public int getValue() {
         String text = source.getText();
-        if (text.length() == 0) {
+        if (text.isEmpty()) {
             return 0;
         } else {
             return Integer.parseInt(source.getText());

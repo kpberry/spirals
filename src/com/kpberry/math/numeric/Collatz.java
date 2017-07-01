@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class Collatz {
     private static final Map<Integer, Integer> collatzLengths = new HashMap<>();
-    private static String outFile = "out/goldbach_indices.csv";
+    private static final String outFile = "out/goldbach_indices.csv";
     private static final DoubleProperty progress = new SimpleDoubleProperty(0);
 
     /**
@@ -35,7 +35,7 @@ public class Collatz {
         return collatzLengths.get(n);
     }
 
-    synchronized public static void updateCollatzLengths(int n) {
+    public static synchronized void updateCollatzLengths(int n) {
         //TODO read goldbach indices from the file
         if (n >= collatzLengths.size()) {
             progress.setValue(0);
@@ -49,7 +49,7 @@ public class Collatz {
                     if ((k & 1) == 0) {
                         k /= 2;
                     } else {
-                        k = k * 3 + 1;
+                        k = (k * 3) + 1;
                     }
                     if (collatzLengths.containsKey(k)) {
                         length += collatzLengths.get(k);

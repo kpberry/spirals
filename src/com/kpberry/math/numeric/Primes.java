@@ -20,7 +20,7 @@ public class Primes {
         if (n >= factorCounts.length) {
             updateFactorCounts(n + 1);
         }
-        return n > 0 && factorCounts[n] == 2;
+        return (n > 0) && (factorCounts[n] == 2);
     }
 
     public static int factorCount(int n) {
@@ -30,7 +30,7 @@ public class Primes {
         return factorCounts[n];
     }
 
-    synchronized public static void updateFactorCounts(int upper) {
+    public static synchronized void updateFactorCounts(int upper) {
         if (upper < factorCounts.length) {
             return;
         }
@@ -38,8 +38,8 @@ public class Primes {
         progress.setValue(0);
 
         factorCounts = new int[upper + 1];
-        for (int i = 2; i < upper + 1; i++) {
-            for (int j = i; j < upper + 1; j += i) {
+        for (int i = 2; i < (upper + 1); i++) {
+            for (int j = i; j < (upper + 1); j += i) {
                 factorCounts[j]++;
             }
             factorCounts[i]++;
@@ -52,7 +52,7 @@ public class Primes {
         factorCounts[1] = 1;
     }
 
-    synchronized public static void updatePrimeFactorCounts(int upper) {
+    public static synchronized void updatePrimeFactorCounts(int upper) {
         if (upper < primeFactorCounts.length) {
             return;
         }
@@ -60,10 +60,10 @@ public class Primes {
         progress.setValue(0);
 
         primeFactorCounts = new int[upper + 1];
-        for (int i = 2; i < upper + 1; i++) {
+        for (int i = 2; i < (upper + 1); i++) {
             if (primeFactorCounts[i] == 0) {
                 primes.add(i);
-                for (int j = i; j < upper + 1; j += i) {
+                for (int j = i; j < (upper + 1); j += i) {
                     primeFactorCounts[j]++;
                 }
                 primeFactorCounts[i]++;

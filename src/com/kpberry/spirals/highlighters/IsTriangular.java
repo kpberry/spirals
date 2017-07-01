@@ -1,8 +1,7 @@
 package com.kpberry.spirals.highlighters;
 
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.preprocessors.IdentifyTriangularNumbers;
-import com.kpberry.spirals.base.Highlighter;
+import com.kpberry.math.preprocessors.Preprocessor;
 
 import static com.kpberry.math.numeric.Triangular.isTriangular;
 

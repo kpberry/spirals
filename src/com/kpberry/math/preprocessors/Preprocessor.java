@@ -1,4 +1,4 @@
-package com.kpberry.math;
+package com.kpberry.math.preprocessors;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 public abstract class Preprocessor implements Consumer<Integer> {
     @Override
     public boolean equals(Object other) {
-        return other instanceof Preprocessor
+        return (other instanceof Preprocessor)
                 && other.toString().equals(this.toString());
     }
 

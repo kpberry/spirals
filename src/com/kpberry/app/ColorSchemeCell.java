@@ -1,6 +1,6 @@
 package com.kpberry.app;
 
-import com.kpberry.spirals.base.ColorScheme;
+import com.kpberry.spirals.color_schemes.ColorScheme;
 
 /**
  * Created by Kevin on 6/16/2017 for Spirals for Spirals.

@@ -1,27 +1,28 @@
 package com.kpberry.app;
 
-import com.kpberry.math.InclusionCriterion;
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.inclusion_criteria.Any;
 import com.kpberry.math.inclusion_criteria.Even;
 import com.kpberry.math.inclusion_criteria.GT_Zero;
+import com.kpberry.math.inclusion_criteria.InclusionCriterion;
 import com.kpberry.math.inclusion_criteria.LogN_LT_FC;
 import com.kpberry.math.inclusion_criteria.Odd;
 import com.kpberry.math.preprocessors.BulkPreprocess;
-import com.kpberry.spirals.base.ColorScheme;
-import com.kpberry.spirals.base.ColorSchemeFactory;
-import com.kpberry.spirals.base.Drawer;
-import com.kpberry.spirals.base.Highlighter;
-import com.kpberry.spirals.base.Spiral;
+import com.kpberry.math.preprocessors.Preprocessor;
+import com.kpberry.spirals.Spiral;
+import com.kpberry.spirals.color_schemes.ColorScheme;
+import com.kpberry.spirals.color_schemes.ColorSchemeFactory;
 import com.kpberry.spirals.color_schemes.PriorityColorScheme;
+import com.kpberry.spirals.drawers.Drawer;
 import com.kpberry.spirals.drawers.Hex;
 import com.kpberry.spirals.drawers.Square;
 import com.kpberry.spirals.highlight_modes.Binary;
+import com.kpberry.spirals.highlight_modes.HighlightMode;
 import com.kpberry.spirals.highlight_modes.LERP;
 import com.kpberry.spirals.highlight_modes.MultipleOfBase;
 import com.kpberry.spirals.highlighters.CollatzLength;
 import com.kpberry.spirals.highlighters.FactorCount;
 import com.kpberry.spirals.highlighters.GoldbachCount;
+import com.kpberry.spirals.highlighters.Highlighter;
 import com.kpberry.spirals.highlighters.IsPrime;
 import com.kpberry.spirals.highlighters.IsTriangular;
 import com.kpberry.util.Images;
@@ -51,6 +52,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -69,7 +71,8 @@ public class AppController implements Initializable {
     @FXML private TextField canvasHeightField;
     @FXML private TextField canvasWidthField;
     @FXML private Slider canvasScaleField;
-    @FXML private ChoiceBox<ColorSchemeFactory> highlightModeChoiceBox;
+    @FXML
+    private ChoiceBox<HighlightMode> highlightModeChoiceBox;
     @FXML private ChoiceBox<Drawer> drawerChoiceBox;
     @FXML private ChoiceBox<Highlighter> highlighterChoiceBox;
     @FXML private GridPane colorSelectionGrid;
@@ -95,6 +98,8 @@ public class AppController implements Initializable {
     private ObservableList<ColorPicker> colorPickers;
     private Spiral current;
 
+    private final double scalingRate = 0.95;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         intSpiralLengthField = new IntField(spiralLengthField);
@@ -114,7 +119,7 @@ public class AppController implements Initializable {
                                         customInclusionCriterion.getText(),
                                         variableTextField.getText()
                                 );
-                        if (icf.getCompileErrors().length() > 0) {
+                        if (icf.hasCompileErrors()) {
                             infoText.setText(icf.getCompileErrors());
                         } else {
                             this.inclusionCriteriaListView.getItems().add(
@@ -146,7 +151,7 @@ public class AppController implements Initializable {
                             infoText.setText(
                                     current.getColorScheme()
                                             + "\nValue: " + i + ": "
-                                            + current.getHighlighter().apply(i)
+                                            + current.applyHighlighter(i)
                             );
                         }
                     });
@@ -180,15 +185,15 @@ public class AppController implements Initializable {
                                 selectedColorSchemes.getItems().indexOf(newValue)
                         );
                     }
-                    ColorSchemeFactory hm = newValue.getColorSchemeFactory();
+                    HighlightMode hm = newValue.getHighlightMode();
                     highlightModeChoiceBox.getSelectionModel().select(hm);
                     updateColorSelectionGrid(hm);
-                    for (int i = 0; i < hm.getNumRequiredColors(); i++) {
-                        colorPickers.get(i).setValue(newValue.getColors()[i]);
-                    }
                     Highlighter h = newValue.getHighlighter();
                     highlighterChoiceBox.getSelectionModel().select(h);
                     cutoffTextField.setText(newValue.getCutoff() + "");
+                    for (int i = 0; i < newValue.getNumRequiredColors(); i++) {
+                        colorPickers.get(i).setValue(newValue.getColors()[i]);
+                    }
                 }
         );
 
@@ -202,15 +207,15 @@ public class AppController implements Initializable {
                                 availableColorSchemes.getItems().indexOf(newValue)
                         );
                     }
-                    ColorSchemeFactory hm = newValue.getColorSchemeFactory();
+                    HighlightMode hm = newValue.getHighlightMode();
                     highlightModeChoiceBox.getSelectionModel().select(hm);
                     updateColorSelectionGrid(hm);
-                    for (int i = 0; i < hm.getNumRequiredColors(); i++) {
-                        colorPickers.get(i).setValue(newValue.getColors()[i]);
-                    }
                     Highlighter h = newValue.getHighlighter();
                     highlighterChoiceBox.getSelectionModel().select(h);
                     cutoffTextField.setText(newValue.getCutoff() + "");
+                    for (int i = 0; i < newValue.getNumRequiredColors(); i++) {
+                        colorPickers.get(i).setValue(newValue.getColors()[i]);
+                    }
                 }
         );
 
@@ -220,7 +225,7 @@ public class AppController implements Initializable {
                     if (cs == null) {
                         return;
                     }
-                    if (m.getClickCount() >= 2
+                    if ((m.getClickCount() >= 2)
                             && m.getButton().equals(MouseButton.PRIMARY)) {
                         selectedColorSchemes.getItems().remove(cs);
                     }
@@ -234,7 +239,7 @@ public class AppController implements Initializable {
                     if (cs == null) {
                         return;
                     }
-                    if (m.getClickCount() >= 2
+                    if ((m.getClickCount() >= 2)
                             && m.getButton().equals(MouseButton.PRIMARY)
                             && !selectedColorSchemes.getItems().contains(cs)) {
                         selectedColorSchemes.getItems().add(cs);
@@ -267,7 +272,7 @@ public class AppController implements Initializable {
 
         spiralCanvas.setOnScroll(e -> {
             if (e.isControlDown()) {
-                double mult = (e.getDeltaY() > 0) ? (1 / 0.95) : 0.95;
+                double mult = (e.getDeltaY() > 0) ? (1 / scalingRate) : scalingRate;
                 canvasScaleField.setValue(canvasScaleField.getValue() * mult);
 
                 e.consume();
@@ -304,7 +309,7 @@ public class AppController implements Initializable {
         }
     }
 
-    private void updateColorSelectionGrid(ColorSchemeFactory hm) {
+    private void updateColorSelectionGrid(HighlightMode hm) {
         colorSelectionGrid.getChildren().clear();
         colorPickers.clear();
         int colorCount = hm.getNumRequiredColors();
@@ -318,14 +323,15 @@ public class AppController implements Initializable {
         colorSelectionGrid.autosize();
     }
 
+    @SuppressWarnings("MagicNumber")
     private String ordinal(int i) {
         String ending;
         int mod = i % 10;
-        if (mod == 1 && i != 11) {
+        if ((mod == 1) && (i != 11)) {
             ending = "st";
-        } else if (mod == 2 && i != 12) {
+        } else if ((mod == 2) && (i != 12)) {
             ending = "nd";
-        } else if (mod == 3 && i != 13) {
+        } else if ((mod == 3) && (i != 13)) {
             ending = "rd";
         } else {
             ending = "th";
@@ -349,11 +355,11 @@ public class AppController implements Initializable {
     public ColorScheme createColorScheme() {
         int cutoff = intCutoffTextField.getValue();
         Highlighter h = highlighterChoiceBox.getValue();
-        ColorSchemeFactory hm = highlightModeChoiceBox.getValue();
+        HighlightMode hm = highlightModeChoiceBox.getValue();
         List<Color> colors = new ArrayList<>();
         colorPickers.forEach(c -> colors.add(c.getValue()));
 
-        return hm.getColorScheme(h, colors, cutoff);
+        return new ColorSchemeFactory().getColorScheme(hm, h, colors, cutoff);
     }
 
     @FXML
@@ -361,7 +367,7 @@ public class AppController implements Initializable {
         //Copy is necessary since the selected items are observable, so deleting
         //them in one list (resulting in a new set of selected items) would
         //result in the incorrect items being deleted in the other list
-        List<ColorScheme> selectedItems = new ArrayList<>(
+        Collection<ColorScheme> selectedItems = new ArrayList<>(
                 availableColorSchemes.getSelectionModel().getSelectedItems()
         );
         availableColorSchemes.getItems().removeAll(selectedItems);
@@ -398,6 +404,7 @@ public class AppController implements Initializable {
         drawSpiral(spiral);
     }
 
+    @SuppressWarnings("MagicNumber")
     private void drawSpiral(Spiral spiral) {
         int spiralLength = intSpiralLengthField.getValue();
         int elemSize = intElementSizeField.getValue();

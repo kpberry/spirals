@@ -1,8 +1,7 @@
 package com.kpberry.spirals.drawers;
 
 import com.kpberry.math.shapes.Hexagon;
-import com.kpberry.spirals.base.ColorScheme;
-import com.kpberry.spirals.base.Drawer;
+import com.kpberry.spirals.color_schemes.ColorScheme;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.Iterator;
@@ -13,6 +12,7 @@ import java.util.function.Predicate;
  *
  */
 public class Hex implements Drawer {
+    @Override
     public int mousePositionToN(GraphicsContext gc, int length,
                                 double mouseX, double mouseY,
                                 double elemSize, Predicate<Integer> ic) {
@@ -43,7 +43,7 @@ public class Hex implements Drawer {
 
         while (iterator.hasNext()) {
             cur = iterator.next();
-            cur.fill(gc, cs.getColor(iterator.value));
+            cur.fill(gc, cs.computeColor(iterator.value));
         }
     }
 
@@ -77,21 +77,21 @@ public class Hex implements Drawer {
         public Hexagon next() {
             Hexagon result = cur;
 
-            while (!ic.test(index) && index < length) {
+            while (!ic.test(index) && (index < length)) {
                 index++;
             }
 
-            if (strideIndex == stride
-                    || direction == Hexagon.TilingDirection.UP
-                    && strideIndex == stride - 1) {
+            if ((strideIndex == stride)
+                    || ((direction == Hexagon.TilingDirection.UP)
+                    && (strideIndex == (stride - 1)))) {
                 strideIndex = 0;
                 int index = direction.ordinal() + 1;
                 index %= Hexagon.TilingDirection.values().length;
                 direction = Hexagon.TilingDirection.values()[index];
                 if (direction.equals(Hexagon.TilingDirection.UP_RIGHT)) {
                     stride += 1;
-                } else if (direction == Hexagon.TilingDirection.UP
-                        && strideIndex == stride - 1) {
+                } else if ((direction == Hexagon.TilingDirection.UP)
+                        && (strideIndex == (stride - 1))) {
                     direction = Hexagon.TilingDirection.UP_LEFT;
                 }
             }

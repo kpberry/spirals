@@ -1,7 +1,6 @@
 package com.kpberry.spirals.drawers;
 
-import com.kpberry.spirals.base.ColorScheme;
-import com.kpberry.spirals.base.Drawer;
+import com.kpberry.spirals.color_schemes.ColorScheme;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -17,6 +16,7 @@ public class Square implements Drawer {
         RIGHT, UP, LEFT, DOWN
     }
 
+    @Override
     public int mousePositionToN(GraphicsContext gc, int length,
                                 double mouseX, double mouseY,
                                 double elemSize, Predicate<Integer> ic) {
@@ -29,7 +29,7 @@ public class Square implements Drawer {
         SquareIterator iterator = new SquareIterator(length, ic);
         while (iterator.hasNext()) {
             cur = iterator.next();
-            if (cur.getX() == x && cur.getY() == y) {
+            if ((cur.getX() == x) && (cur.getY() == y)) {
                 return iterator.value;
             }
         }
@@ -47,7 +47,7 @@ public class Square implements Drawer {
         SquareIterator iterator = new SquareIterator(length, ic);
         while (iterator.hasNext()) {
             cur = iterator.next().multiply(elemSize).add(x, y);
-            gc.setFill(cs.getColor(iterator.value));
+            gc.setFill(cs.computeColor(iterator.value));
             gc.fillRect(cur.getX(), cur.getY(), elemSize, elemSize);
         }
     }
@@ -84,7 +84,7 @@ public class Square implements Drawer {
         public Point2D next() {
             Point2D prev = cur;
 
-            while (!ic.test(index) && index < length) {
+            while (!ic.test(index) && (index < length)) {
                 index++;
             }
 

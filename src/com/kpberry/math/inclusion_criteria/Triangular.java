@@ -1,8 +1,7 @@
 package com.kpberry.math.inclusion_criteria;
 
-import com.kpberry.math.InclusionCriterion;
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.preprocessors.IdentifyTriangularNumbers;
+import com.kpberry.math.preprocessors.Preprocessor;
 
 import static com.kpberry.math.numeric.Triangular.isTriangular;
 

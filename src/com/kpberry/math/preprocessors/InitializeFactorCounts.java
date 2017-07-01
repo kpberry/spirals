@@ -1,6 +1,5 @@
 package com.kpberry.math.preprocessors;
 
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.numeric.Primes;
 import javafx.beans.property.DoubleProperty;
 

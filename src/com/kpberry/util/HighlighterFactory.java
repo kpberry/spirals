@@ -1,6 +1,6 @@
 package com.kpberry.util;
 
-import com.kpberry.spirals.base.Highlighter;
+import com.kpberry.spirals.highlighters.Highlighter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,14 +15,16 @@ import java.nio.file.Path;
 import java.util.function.Function;
 
 /**
- * Created by Kevin on 6/29/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/29/2017 for Spirals for Spirals for Spirals.
+ *
  */
+@SuppressWarnings("unchecked")
 public class HighlighterFactory {
     private final String expr;
     private Class<?> compiledClass;
     private Method compiledMethod;
     private String compileErrors;
-    private Highlighter instance;
+    private final Highlighter instance;
 
     public HighlighterFactory(String expr) throws NoSuchMethodException,
             IOException, ClassNotFoundException, IllegalAccessException,
@@ -30,7 +32,7 @@ public class HighlighterFactory {
         this.expr = expr;
         this.compile();
         this.instance = new Highlighter() {
-            private Function<Integer, Double> instance
+            private final Function<Integer, Double> instance
                     = (Function<Integer, Double>) compiledClass.newInstance();
 
             @Override
@@ -40,7 +42,7 @@ public class HighlighterFactory {
         };
     }
 
-    public void compile() throws NoSuchMethodException,
+    public final void compile() throws NoSuchMethodException,
             IOException, ClassNotFoundException {
         String name = "test";
         Path file = Files.createTempFile(name, ".java");
@@ -54,7 +56,6 @@ public class HighlighterFactory {
                         + "\tpublic Double apply(Integer n) {\n\t\t"
                         + " return " + expr + "\n\t}"
                         + "\n}";
-        System.out.println(output);
         Files.write(file, output.getBytes(StandardCharsets.UTF_8));
 
         ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
@@ -66,7 +67,7 @@ public class HighlighterFactory {
         this.compileErrors = new String(
                 errorStream.toByteArray(), StandardCharsets.UTF_8
         ).replace(fileName, name);
-        if (this.compileErrors.length() > 0) {
+        if (!this.compileErrors.isEmpty()) {
             System.err.println(this.compileErrors);
         }
 
@@ -85,5 +86,9 @@ public class HighlighterFactory {
 
     public Highlighter getInstance() {
         return instance;
+    }
+
+    public boolean hasCompileErrors() {
+        return !compileErrors.isEmpty();
     }
 }

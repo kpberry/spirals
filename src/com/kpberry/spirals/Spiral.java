@@ -1,6 +1,9 @@
-package com.kpberry.spirals.base;
+package com.kpberry.spirals;
 
-import com.kpberry.math.Preprocessor;
+import com.kpberry.math.preprocessors.Preprocessor;
+import com.kpberry.spirals.color_schemes.ColorScheme;
+import com.kpberry.spirals.drawers.Drawer;
+import com.kpberry.spirals.highlighters.Highlighter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
@@ -61,5 +64,9 @@ public class Spiral {
 
     public Highlighter getHighlighter() {
         return colorScheme.getHighlighter();
+    }
+
+    public double applyHighlighter(int n) {
+        return this.colorScheme.applyHighlighter(n);
     }
 }

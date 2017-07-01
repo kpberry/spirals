@@ -1,7 +1,7 @@
-package com.kpberry.spirals.base;
+package com.kpberry.spirals.highlighters;
 
-import com.kpberry.math.Preprocessor;
 import com.kpberry.math.preprocessors.Nothing;
+import com.kpberry.math.preprocessors.Preprocessor;
 
 import java.util.function.Function;
 
