@@ -84,7 +84,7 @@ public class Square implements Drawer {
         public Point2D next() {
             Point2D prev = cur;
 
-            while (!ic.test(index)) {
+            while (!ic.test(index) && index < length) {
                 index++;
             }
 

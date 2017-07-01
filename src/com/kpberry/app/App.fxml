@@ -93,6 +93,36 @@
          <Separator prefWidth="200.0" />
          <Label text="Inclusion Criteria" />
          <ListView fx:id="inclusionCriteriaListView" prefHeight="120.0" prefWidth="280.0" />
+             <HBox prefHeight="15.0" prefWidth="280.0" spacing="5.0">
+                 <children>
+                     <Label text="Include">
+                         <padding>
+                             <Insets bottom="5.0" left="5.0" right="5.0"
+                                     top="5.0"/>
+                         </padding>
+                     </Label>
+                     <TextField fx:id="variableTextField" prefHeight="25.0"
+                                prefWidth="25.0" text="n" HBox.hgrow="NEVER">
+                         <font>
+                             <Font name="System Bold Italic" size="12.0"/>
+                         </font>
+                     </TextField>
+                     <Label layoutX="10.0" layoutY="10.0" text="if"
+                            HBox.hgrow="NEVER">
+                         <padding>
+                             <Insets bottom="5.0" left="5.0" right="5.0"
+                                     top="5.0"/>
+                         </padding>
+                     </Label>
+                     <TextField fx:id="customInclusionCriterion" layoutX="64.0"
+                                layoutY="10.0" prefHeight="25.0"
+                                prefWidth="25.0" HBox.hgrow="ALWAYS">
+                         <font>
+                             <Font name="System Bold Italic" size="12.0"/>
+                         </font>
+                     </TextField>
+                 </children>
+             </HBox>
          <Separator prefWidth="200.0" />
          <ProgressBar fx:id="spiralProgress" prefWidth="200.0" progress="0.0" />
          <Text fx:id="infoText" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Cell Info" textAlignment="CENTER" wrappingWidth="230.0">
@@ -209,8 +239,8 @@
                    <RowConstraints/>
                </rowConstraints>
                <Button fx:id="updateColorSchemeButton" mnemonicParsing="false"
-                       onAction="#updateColorScheme"
-                       text="Update Color Scheme" GridPane.columnIndex="1"/>
+                       onAction="#updateColorScheme" text="Update Color Scheme"
+                       GridPane.columnIndex="1"/>
                <Button defaultButton="true" layoutX="10.0" layoutY="13.0"
                        mnemonicParsing="false" onAction="#addColorScheme"
                        text="Add Color Scheme"/>

@@ -77,7 +77,7 @@ public class Hex implements Drawer {
         public Hexagon next() {
             Hexagon result = cur;
 
-            while (!ic.test(index)) {
+            while (!ic.test(index) && index < length) {
                 index++;
             }
 
