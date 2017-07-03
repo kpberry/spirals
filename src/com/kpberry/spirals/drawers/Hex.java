@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class Hex implements Drawer {
@@ -45,6 +45,11 @@ public class Hex implements Drawer {
             cur = iterator.next();
             cur.fill(gc, cs.computeColor(iterator.value));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Hex";
     }
 
     private class HexIterator implements Iterator<Hexagon> {
@@ -103,10 +108,5 @@ public class Hex implements Drawer {
             index++;
             return result;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Hex";
     }
 }

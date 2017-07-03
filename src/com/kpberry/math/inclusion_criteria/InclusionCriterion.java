@@ -6,7 +6,7 @@ import com.kpberry.math.preprocessors.Preprocessor;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/26/2017 for Spirals.
+ * Created by Kevin on 6/26/2017 for Spirals for Spirals.
  *
  */
 public interface InclusionCriterion extends Predicate<Integer> {

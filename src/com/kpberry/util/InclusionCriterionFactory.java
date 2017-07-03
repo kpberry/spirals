@@ -14,16 +14,16 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/29/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/29/2017 for Spirals for Spirals for Spirals.
  *
  */
 @SuppressWarnings("unchecked")
 public class InclusionCriterionFactory {
     private final String expr;
     private final String variable;
+    private final InclusionCriterion instance;
     private Class<?> compiledClass;
     private String compileErrors;
-    private final InclusionCriterion instance;
 
     public InclusionCriterionFactory(String expr, String variable)
             throws NoSuchMethodException, IOException, ClassNotFoundException,

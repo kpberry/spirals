@@ -7,7 +7,7 @@ import javafx.scene.control.ProgressIndicator;
 import java.util.function.Consumer;
 
 /**
- * Created by Kevin on 6/27/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/27/2017 for Spirals for Spirals for Spirals.
  *
  */
 public abstract class Preprocessor implements Consumer<Integer> {

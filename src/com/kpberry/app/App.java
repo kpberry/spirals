@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Created by Kevin on 5/20/2017 for Spirals.
+ * Created by Kevin on 5/20/2017 for Spirals for Spirals.
  *
  */
 public class App extends Application {

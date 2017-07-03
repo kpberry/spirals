@@ -3,7 +3,7 @@ package com.kpberry.app;
 import javafx.scene.control.TextField;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals.
  *
  */
 public class IntField {

@@ -8,14 +8,10 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class Square implements Drawer {
-    private enum Direction {
-        RIGHT, UP, LEFT, DOWN
-    }
-
     @Override
     public int mousePositionToN(GraphicsContext gc, int length,
                                 double mouseX, double mouseY,
@@ -50,6 +46,15 @@ public class Square implements Drawer {
             gc.setFill(cs.computeColor(iterator.value));
             gc.fillRect(cur.getX(), cur.getY(), elemSize, elemSize);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Square";
+    }
+
+    private enum Direction {
+        RIGHT, UP, LEFT, DOWN
     }
 
     private class SquareIterator implements Iterator<Point2D> {
@@ -120,10 +125,5 @@ public class Square implements Drawer {
             index++;
             return prev;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Square";
     }
 }

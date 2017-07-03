@@ -7,7 +7,8 @@ import javafx.scene.paint.Color;
 import java.util.List;
 
 /**
- * Created by Kevin on 6/26/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/26/2017 for Spirals for Spirals for Spirals.
+ *
  */
 public class ColorSchemeFactory {
     public ColorScheme getColorScheme(HighlightMode hm, Highlighter h,

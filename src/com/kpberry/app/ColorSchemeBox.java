@@ -1,20 +1,21 @@
 package com.kpberry.app;
 
 import com.kpberry.spirals.color_schemes.ColorScheme;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
 /**
- * Created by Kevin on 6/28/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/28/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class ColorSchemeBox extends HBox {
     public ColorSchemeBox(ColorScheme cs) {
         setSpacing(5);
         String s = cs.getName() + " [" + cs.getHighlighter() + "]";
-        getChildren().add(new Text(s));
+        getChildren().add(new Label(s));
         Pane pane = new Pane();
         HBox.setHgrow(pane, Priority.ALWAYS);
         getChildren().add(pane);

@@ -4,7 +4,7 @@ import com.kpberry.math.preprocessors.Nothing;
 import com.kpberry.math.preprocessors.Preprocessor;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class Any implements InclusionCriterion {

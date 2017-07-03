@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kevin on 5/29/2017 for Spirals.
+ * Created by Kevin on 5/29/2017 for Spirals for Spirals.
  *
  */
 public class Collatz {

@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals for Spirals for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals for Spirals for Spirals for Spirals.
  *
  */
 public class RegularPolygon {

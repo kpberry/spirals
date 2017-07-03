@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * Created by Kevin on 5/19/2017 for genes for Spirals.
+ * Created by Kevin on 5/19/2017 for genes for Spirals for Spirals.
  *
  */
 public class Images {

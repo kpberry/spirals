@@ -6,7 +6,8 @@ import javafx.scene.paint.Color;
 import java.util.List;
 
 /**
- * Created by Kevin on 7/1/2017 for Spirals for Spirals.
+ * Created by Kevin on 7/1/2017 for Spirals for Spirals for Spirals.
+ *
  */
 public class MultipleOfBase extends ColorScheme {
     private final Color base;

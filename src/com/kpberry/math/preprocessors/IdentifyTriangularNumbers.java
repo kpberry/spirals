@@ -6,7 +6,7 @@ import javafx.beans.property.DoubleProperty;
 import static com.kpberry.math.numeric.Triangular.updateTriangleNumbers;
 
 /**
- * Created by Kevin on 6/11/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/11/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class IdentifyTriangularNumbers extends Preprocessor {

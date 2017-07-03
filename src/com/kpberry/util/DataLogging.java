@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kevin on 5/19/2017 for genes for Spirals.
+ * Created by Kevin on 5/19/2017 for genes for Spirals for Spirals.
  *
  */
 public class DataLogging {
@@ -27,8 +27,9 @@ public class DataLogging {
      * Gets a new numbered file with a given extension within a desired
      * directory. Ensures that the returned file will not be the same as any
      * existing files within the directory.
-     * @param dirName The (possibly non-existent) directory where the file will
-     *                be created
+     *
+     * @param dirName   The (possibly non-existent) directory where the file will
+     *                  be created
      * @param extension The extension for the file type to return
      * @return A new unique file within the given directory
      */

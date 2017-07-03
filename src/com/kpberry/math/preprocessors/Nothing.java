@@ -4,7 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 /**
- * Created by Kevin on 6/27/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/27/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class Nothing extends Preprocessor {

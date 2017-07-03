@@ -1,7 +1,7 @@
 package com.kpberry.math.shapes;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class Hexagon extends RegularPolygon {

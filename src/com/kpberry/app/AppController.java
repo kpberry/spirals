@@ -20,14 +20,17 @@ import com.kpberry.spirals.highlight_modes.HighlightMode;
 import com.kpberry.spirals.highlight_modes.LERP;
 import com.kpberry.spirals.highlight_modes.MultipleOfBase;
 import com.kpberry.spirals.highlighters.CollatzLength;
+import com.kpberry.spirals.highlighters.DiffFactorCount;
 import com.kpberry.spirals.highlighters.FactorCount;
 import com.kpberry.spirals.highlighters.GoldbachCount;
 import com.kpberry.spirals.highlighters.Highlighter;
 import com.kpberry.spirals.highlighters.IsPrime;
 import com.kpberry.spirals.highlighters.IsTriangular;
+import com.kpberry.spirals.highlighters.PrimeFactorCount;
 import com.kpberry.util.Images;
 import com.kpberry.util.InclusionCriterionFactory;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,51 +57,64 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import static javafx.scene.paint.Color.BLACK;
 
 /**
- * Created by Kevin on 5/20/2017 for Spirals.
+ * Created by Kevin on 5/20/2017 for Spirals for Spirals.
  *
  */
 public class AppController implements Initializable {
-    @FXML private Canvas spiralCanvas;
-    @FXML private TextField spiralLengthField;
-    @FXML private TextField elementSizeField;
-    @FXML private TextField canvasHeightField;
-    @FXML private TextField canvasWidthField;
-    @FXML private Slider canvasScaleField;
+    private final double scalingRate = 0.95;
+    @FXML
+    private Canvas spiralCanvas;
+    @FXML
+    private TextField spiralLengthField;
+    @FXML
+    private TextField elementSizeField;
+    @FXML
+    private TextField canvasHeightField;
+    @FXML
+    private TextField canvasWidthField;
+    @FXML
+    private Slider canvasScaleField;
     @FXML
     private ChoiceBox<HighlightMode> highlightModeChoiceBox;
-    @FXML private ChoiceBox<Drawer> drawerChoiceBox;
-    @FXML private ChoiceBox<Highlighter> highlighterChoiceBox;
-    @FXML private GridPane colorSelectionGrid;
-    @FXML private TextField cutoffTextField;
-    @FXML private ListView<InclusionCriterion> inclusionCriteriaListView;
-    @FXML private ListView<ColorScheme> selectedColorSchemes;
-    @FXML private ListView<ColorScheme> availableColorSchemes;
-    @FXML private Text infoText;
-    @FXML private ScrollPane spiralPane;
-    @FXML private Button updateColorSchemeButton;
-    @FXML private ProgressBar spiralProgress;
+    @FXML
+    private ChoiceBox<Drawer> drawerChoiceBox;
+    @FXML
+    private ChoiceBox<Highlighter> highlighterChoiceBox;
+    @FXML
+    private GridPane colorSelectionGrid;
+    @FXML
+    private TextField cutoffTextField;
+    @FXML
+    private ListView<InclusionCriterion> inclusionCriteriaListView;
+    @FXML
+    private ListView<ColorScheme> selectedColorSchemes;
+    @FXML
+    private ListView<ColorScheme> availableColorSchemes;
+    @FXML
+    private Text infoText;
+    @FXML
+    private ScrollPane spiralPane;
+    @FXML
+    private Button updateColorSchemeButton;
+    @FXML
+    private ProgressBar spiralProgress;
     @FXML
     private TextField customInclusionCriterion;
     @FXML
     private TextField variableTextField;
-
     private IntField intSpiralLengthField;
     private IntField intElementSizeField;
     private IntField intCanvasHeightField;
     private IntField intCanvasScaleField;
     private IntField intCutoffTextField;
-
     private ObservableList<ColorPicker> colorPickers;
     private Spiral current;
-
-    private final double scalingRate = 0.95;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -137,7 +153,8 @@ public class AppController implements Initializable {
         GraphicsContext mainGC = spiralCanvas.getGraphicsContext2D();
         spiralCanvas.setOnMouseClicked(
                 (mouse) -> {
-                    Drawer drawer = drawerChoiceBox.getSelectionModel().getSelectedItem();
+                    Drawer drawer = drawerChoiceBox.getSelectionModel()
+                            .getSelectedItem();
                     Platform.runLater(() -> {
                         int i = drawer.mousePositionToN(
                                 mainGC, intSpiralLengthField.getValue(),
@@ -162,66 +179,28 @@ public class AppController implements Initializable {
                 new Binary(), new LERP(), new MultipleOfBase()
         );
         highlightModeChoiceBox.getSelectionModel().select(0);
-        highlightModeChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (!Objects.equals(oldValue, newValue)) {
-                        updateColorSelectionGrid(
-                                highlightModeChoiceBox.getItems().get((int) newValue)
-                        );
-                    }
-                }
-        );
+        highlightModeChoiceBox.getSelectionModel().selectedIndexProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+                            if (!oldValue.equals(newValue)) {
+                                HighlightMode item = highlightModeChoiceBox
+                                        .getItems().get((int) newValue);
+                                updateColorSelectionGrid(item);
+                            }
+                        }
+                );
 
         colorPickers = FXCollections.observableArrayList();
         updateColorSelectionGrid(highlightModeChoiceBox.getValue());
 
-        availableColorSchemes.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue == null) {
-                        return;
-                    }
-                    if (selectedColorSchemes.getItems().contains(newValue)) {
-                        selectedColorSchemes.getSelectionModel().select(
-                                selectedColorSchemes.getItems().indexOf(newValue)
-                        );
-                    }
-                    HighlightMode hm = newValue.getHighlightMode();
-                    highlightModeChoiceBox.getSelectionModel().select(hm);
-                    updateColorSelectionGrid(hm);
-                    Highlighter h = newValue.getHighlighter();
-                    highlighterChoiceBox.getSelectionModel().select(h);
-                    cutoffTextField.setText(newValue.getCutoff() + "");
-                    for (int i = 0; i < newValue.getNumRequiredColors(); i++) {
-                        colorPickers.get(i).setValue(newValue.getColors()[i]);
-                    }
-                }
-        );
-
-        selectedColorSchemes.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue == null) {
-                        return;
-                    }
-                    if (availableColorSchemes.getItems().contains(newValue)) {
-                        availableColorSchemes.getSelectionModel().select(
-                                availableColorSchemes.getItems().indexOf(newValue)
-                        );
-                    }
-                    HighlightMode hm = newValue.getHighlightMode();
-                    highlightModeChoiceBox.getSelectionModel().select(hm);
-                    updateColorSelectionGrid(hm);
-                    Highlighter h = newValue.getHighlighter();
-                    highlighterChoiceBox.getSelectionModel().select(h);
-                    cutoffTextField.setText(newValue.getCutoff() + "");
-                    for (int i = 0; i < newValue.getNumRequiredColors(); i++) {
-                        colorPickers.get(i).setValue(newValue.getColors()[i]);
-                    }
-                }
-        );
+        pairSelectionModels(selectedColorSchemes, availableColorSchemes);
+        addColorSchemeSelectionListener(selectedColorSchemes);
+        addColorSchemeSelectionListener(availableColorSchemes);
 
         selectedColorSchemes.setOnMouseClicked(
                 m -> {
-                    ColorScheme cs = selectedColorSchemes.getSelectionModel().getSelectedItem();
+                    ColorScheme cs = selectedColorSchemes.getSelectionModel()
+                            .getSelectedItem();
                     if (cs == null) {
                         return;
                     }
@@ -235,7 +214,8 @@ public class AppController implements Initializable {
 
         availableColorSchemes.setOnMouseClicked(
                 m -> {
-                    ColorScheme cs = availableColorSchemes.getSelectionModel().getSelectedItem();
+                    ColorScheme cs = availableColorSchemes.getSelectionModel()
+                            .getSelectedItem();
                     if (cs == null) {
                         return;
                     }
@@ -249,30 +229,43 @@ public class AppController implements Initializable {
         availableColorSchemes.setCellFactory(c -> new ColorSchemeCell());
 
         updateColorSchemeButton.disableProperty().bind(
-                availableColorSchemes.getSelectionModel().selectedIndexProperty().lessThan(0)
+                availableColorSchemes.getSelectionModel()
+                        .selectedIndexProperty().lessThan(0)
         );
 
         highlighterChoiceBox.getItems().addAll(
-                new FactorCount(), new GoldbachCount(), new IsPrime(),
-                new IsTriangular(), new CollatzLength()
+                new IsPrime(),
+                new FactorCount(),
+                new PrimeFactorCount(),
+                new DiffFactorCount(),
+                new GoldbachCount(),
+                new IsTriangular(),
+                new CollatzLength()
         );
         highlighterChoiceBox.getSelectionModel().select(0);
 
-        drawerChoiceBox.getItems().addAll(
-                new Square(), new Hex()
-        );
+        drawerChoiceBox.getItems().addAll(new Square(), new Hex());
         drawerChoiceBox.getSelectionModel().select(0);
 
         inclusionCriteriaListView.getSelectionModel()
                 .setSelectionMode(SelectionMode.MULTIPLE);
         inclusionCriteriaListView.getItems().addAll(
-                new Any(), new GT_Zero(), new LogN_LT_FC(), new Odd(), new Even()
+                new Any(),
+                new GT_Zero(),
+                new LogN_LT_FC(),
+                new Odd(),
+                new Even()
         );
         inclusionCriteriaListView.getSelectionModel().select(0);
 
         spiralCanvas.setOnScroll(e -> {
             if (e.isControlDown()) {
-                double mult = (e.getDeltaY() > 0) ? (1 / scalingRate) : scalingRate;
+                double mult;
+                if (e.getDeltaY() > 0) {
+                    mult = 1 / scalingRate;
+                } else {
+                    mult = scalingRate;
+                }
                 canvasScaleField.setValue(canvasScaleField.getValue() * mult);
 
                 e.consume();
@@ -281,16 +274,61 @@ public class AppController implements Initializable {
 
         canvasScaleField.valueProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    spiralCanvas.setScaleX(Math.pow(10, (newValue.doubleValue() - 5) / 4));
-                    spiralCanvas.setScaleY(Math.pow(10, (newValue.doubleValue() - 5) / 4));
+                    double value = newValue.doubleValue();
+                    double scale = Math.pow(10, (value - 5) / 4);
+                    spiralCanvas.setScaleX(scale);
+                    spiralCanvas.setScaleY(scale);
                 }
         );
 
         addColorScheme();
     }
 
-    @FXML public void saveCanvasAsImage() {
-        canvasScaleField.setValue((canvasScaleField.getMax() + canvasScaleField.getMin()) / 2);
+    private void
+    pairSelectionModels(ListView<ColorScheme> a, ListView<ColorScheme> b) {
+        a.getSelectionModel().selectedItemProperty().addListener(
+                getSelectionModelListener(b)
+        );
+        b.getSelectionModel().selectedItemProperty().addListener(
+                getSelectionModelListener(a)
+        );
+    }
+
+    private ChangeListener<ColorScheme>
+    getSelectionModelListener(ListView<ColorScheme> a) {
+        return (observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            if (a.getItems().contains(newValue)) {
+                a.getSelectionModel().select(a.getItems().indexOf(newValue));
+            }
+        };
+    }
+
+    private void addColorSchemeSelectionListener(ListView<ColorScheme> cslv) {
+        cslv.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue == null || newValue == oldValue) {
+                        return;
+                    }
+                    HighlightMode hm = newValue.getHighlightMode();
+                    highlightModeChoiceBox.getSelectionModel().select(hm);
+                    AppController.this.updateColorSelectionGrid(hm);
+                    Highlighter h = newValue.getHighlighter();
+                    highlighterChoiceBox.getSelectionModel().select(h);
+                    cutoffTextField.setText(newValue.getCutoff() + "");
+                    for (int i = 0; i < newValue.getNumRequiredColors(); i++) {
+                        colorPickers.get(i).setValue(newValue.getColors()[i]);
+                    }
+                }
+        );
+    }
+
+    @FXML
+    public void saveCanvasAsImage() {
+        double total = canvasScaleField.getMax() + canvasScaleField.getMin();
+        canvasScaleField.setValue(total / 2);
         Images.captureImage(spiralCanvas);
     }
 
@@ -351,8 +389,7 @@ public class AppController implements Initializable {
         }
     }
 
-    @FXML
-    public ColorScheme createColorScheme() {
+    private ColorScheme createColorScheme() {
         int cutoff = intCutoffTextField.getValue();
         Highlighter h = highlighterChoiceBox.getValue();
         HighlightMode hm = highlightModeChoiceBox.getValue();
@@ -374,7 +411,8 @@ public class AppController implements Initializable {
         selectedColorSchemes.getItems().removeAll(selectedItems);
     }
 
-    @FXML public void drawSpiral() {
+    @FXML
+    public void drawSpiral() {
         Predicate<Integer> inclusionCriteria = new Any();
         for (InclusionCriterion i
                 : inclusionCriteriaListView.getSelectionModel()

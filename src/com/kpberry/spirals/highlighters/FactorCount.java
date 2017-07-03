@@ -6,7 +6,7 @@ import com.kpberry.math.preprocessors.Preprocessor;
 import static com.kpberry.math.numeric.Primes.factorCount;
 
 /**
- * Created by Kevin on 6/26/2017 for Spirals for Spirals.
+ * Created by Kevin on 6/26/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class FactorCount implements Highlighter {

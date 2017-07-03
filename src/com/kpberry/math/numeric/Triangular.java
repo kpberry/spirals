@@ -7,13 +7,13 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class Triangular {
     private static final Collection<Integer> triangleNumbers = new HashSet<>();
-    private static int maxRequested = 0;
     private static final DoubleProperty progress = new SimpleDoubleProperty();
+    private static int maxRequested = 0;
 
     public static synchronized void updateTriangleNumbers(int n) {
         if (n > maxRequested) {

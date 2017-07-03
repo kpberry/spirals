@@ -15,16 +15,16 @@ import java.nio.file.Path;
 import java.util.function.Function;
 
 /**
- * Created by Kevin on 6/29/2017 for Spirals for Spirals for Spirals.
+ * Created by Kevin on 6/29/2017 for Spirals for Spirals for Spirals for Spirals.
  *
  */
 @SuppressWarnings("unchecked")
 public class HighlighterFactory {
     private final String expr;
+    private final Highlighter instance;
     private Class<?> compiledClass;
     private Method compiledMethod;
     private String compileErrors;
-    private final Highlighter instance;
 
     public HighlighterFactory(String expr) throws NoSuchMethodException,
             IOException, ClassNotFoundException, IllegalAccessException,

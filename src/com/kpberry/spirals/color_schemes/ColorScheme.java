@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Kevin on 5/21/2017 for Spirals for Spirals.
+ * Created by Kevin on 5/21/2017 for Spirals for Spirals for Spirals.
  *
  */
 public abstract class ColorScheme {
@@ -18,17 +18,17 @@ public abstract class ColorScheme {
     private final Color[] colors;
     private final HighlightMode hm;
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public abstract boolean isLow(int value);
-
-    public abstract Color computeColor(int value);
-
     public ColorScheme(HighlightMode hm, List<Color> colors, Highlighter h, int cutoff) {
         this.hm = hm;
         this.highlighter = h;
         this.cutoff = cutoff;
         this.colors = sanitizeColors(colors, hm.getNumRequiredColors());
     }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public abstract boolean isLow(int value);
+
+    public abstract Color computeColor(int value);
 
     public double applyHighlighter(int n) {
         return highlighter.apply(n);
@@ -58,35 +58,6 @@ public abstract class ColorScheme {
         return hm.getNumRequiredColors();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ColorScheme)) {
-            return false;
-        }
-
-        ColorScheme that = (ColorScheme) o;
-
-        if (cutoff != that.cutoff) {
-            return false;
-        }
-        if ((highlighter != null) ? !highlighter.equals(that.highlighter) : (that.highlighter != null)) {
-            return false;
-        }
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(colors, that.colors);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (highlighter != null) ? highlighter.hashCode() : 0;
-        result = (31 * result) + cutoff;
-        result = (31 * result) + Arrays.hashCode(colors);
-        return result;
-    }
-
     public String getName() {
         return hm.getName();
     }
@@ -106,6 +77,29 @@ public abstract class ColorScheme {
             }
         }
 
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ColorScheme)) return false;
+
+        ColorScheme that = (ColorScheme) o;
+
+        if (cutoff != that.cutoff) return false;
+        if (highlighter != null ? !highlighter.equals(that.highlighter) : that.highlighter != null)
+            return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(colors, that.colors) && (hm != null ? hm.equals(that.hm) : that.hm == null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = highlighter != null ? highlighter.hashCode() : 0;
+        result = 31 * result + cutoff;
+        result = 31 * result + Arrays.hashCode(colors);
+        result = 31 * result + (hm != null ? hm.hashCode() : 0);
         return result;
     }
 }

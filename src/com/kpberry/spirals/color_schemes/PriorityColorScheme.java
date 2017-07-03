@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Kevin on 5/23/2017 for Spirals for Spirals.
+ * Created by Kevin on 5/23/2017 for Spirals for Spirals for Spirals.
  *
  */
 public class PriorityColorScheme extends ColorScheme {

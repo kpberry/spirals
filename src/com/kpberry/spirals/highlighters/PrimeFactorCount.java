@@ -1,27 +1,26 @@
 package com.kpberry.spirals.highlighters;
 
-import com.kpberry.math.preprocessors.IdentifyTriangularNumbers;
+import com.kpberry.math.preprocessors.InitializePrimeFactorCounts;
 import com.kpberry.math.preprocessors.Preprocessor;
 
-import static com.kpberry.math.numeric.Triangular.isTriangular;
+import static com.kpberry.math.numeric.Primes.primeFactorCount;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals for Spirals for Spirals.
- *
  */
-public class IsTriangular implements Highlighter {
+public class PrimeFactorCount implements Highlighter {
     @Override
     public Double apply(Integer integer) {
-        return isTriangular(integer) ? 1.0 : 0.0;
+        return (double) primeFactorCount(integer);
     }
 
     @Override
     public Preprocessor getPreprocessor() {
-        return new IdentifyTriangularNumbers();
+        return new InitializePrimeFactorCounts();
     }
 
     @Override
     public String toString() {
-        return "Is Triangular";
+        return "Prime Factor Count";
     }
 }

@@ -14,17 +14,18 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by Kevin on 5/29/2017 for Spirals.
+ * Created by Kevin on 5/29/2017 for Spirals for Spirals.
  *
  */
 public class Goldbach {
-    private static int[] goldbachIndices = new int[0];
     private static final String outFile = "out/goldbach_indices.csv";
     private static final DoubleProperty progress = new SimpleDoubleProperty(0);
+    private static int[] goldbachIndices = new int[0];
 
     /**
      * Returns the number of ways a number n can be written as the sum of two
      * primes
+     *
      * @param n the number to check
      * @return the number of ways n can be written as the sum of two primes
      */
@@ -38,27 +39,34 @@ public class Goldbach {
         if (n >= goldbachIndices.length) {
             goldbachIndices = new int[n];
 
-            Primes.updatePrimeFactorCounts(n);
+            Primes.updateFactorCounts(n);
             List<Integer> primes = Primes.getPrimes();
 
             progress.setValue(0);
 
             for (int i = 0; i < n; i++) {
                 int index = 0;
-                int cur = 0;
-                while ((cur < i) && (index < primes.size())) {
-                    cur = primes.get(index);
-                    index++;
+                int cur = 2;
+                goldbachIndices[i] = 0;
+                while ((cur <= i / 2) && (index < primes.size())) {
                     if (Primes.isPrime(i - cur)) {
                         goldbachIndices[i]++;
                     }
+                    index++;
+                    cur = primes.get(index);
                 }
 
-                if ((i & 0x100) == 0) {
+                if ((i & 0xFF) == 0) {
                     progress.setValue(i / n);
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        goldbachIndex(10);
+        goldbachIndex(20);
+        goldbachIndex(100);
     }
 
     public static void saveGoldbachIndices() {
