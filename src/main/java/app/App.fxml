@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0"
+            prefWidth="1400.0"
+            xmlns="http://javafx.com/javafx/8.0.60"
+            fx:controller="app.AppController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem mnemonicParsing="false" text="Close"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+                <MenuItem mnemonicParsing="false" onAction="#drawSpiral"
+                          text="Draw Spiral">
+                    <accelerator>
+                        <KeyCodeCombination alt="UP" code="R" control="DOWN"
+                                            meta="UP" shift="UP" shortcut="UP"/>
+                    </accelerator>
+                </MenuItem>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="About"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <left>
+        <VBox alignment="TOP_CENTER" minWidth="200.0" prefHeight="701.0"
+              prefWidth="300.0" spacing="10.0">
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Spiral Length"/>
+                <TextField fx:id="spiralLengthField" text="3000"
+                           GridPane.columnIndex="1"/>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Element Size"
+                      GridPane.rowIndex="1"/>
+                <TextField fx:id="elementSizeField" text="5"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiral Shape"
+                      GridPane.rowIndex="2"/>
+                <ChoiceBox fx:id="drawerChoiceBox" prefHeight="25.0"
+                           prefWidth="396.0" GridPane.columnIndex="1"
+                           GridPane.rowIndex="2"/>
+            </GridPane>
+            <Separator prefWidth="200.0"/>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Canvas Width"/>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Canvas Height" GridPane.rowIndex="1"/>
+                <TextField fx:id="canvasWidthField" text="3840"
+                           GridPane.columnIndex="1"/>
+                <TextField fx:id="canvasHeightField" text="2160"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Canvas Scale" GridPane.rowIndex="2"/>
+                <Slider fx:id="canvasScaleField" max="9.0" min="1.0"
+                        value="5.0" GridPane.columnIndex="1"
+                        GridPane.rowIndex="2"/>
+            </GridPane>
+            <Separator prefWidth="200.0"/>
+            <Label text="Inclusion Criteria"/>
+            <ListView fx:id="inclusionCriteriaListView" prefHeight="120.0"
+                      prefWidth="280.0"/>
+            <HBox prefHeight="15.0" prefWidth="280.0" spacing="5.0">
+                <Label text="Include">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0"
+                                top="5.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="variableTextField" prefHeight="25.0"
+                           prefWidth="25.0" text="n" HBox.hgrow="NEVER">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0"/>
+                    </font>
+                </TextField>
+                <Label layoutX="10.0" layoutY="10.0" text="if"
+                       HBox.hgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0"
+                                top="5.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="customInclusionCriterion" layoutX="64.0"
+                           layoutY="10.0" prefHeight="25.0"
+                           prefWidth="25.0" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0"/>
+                    </font>
+                </TextField>
+            </HBox>
+            <Separator prefWidth="200.0"/>
+            <ProgressBar fx:id="spiralProgress" prefWidth="200.0"
+                         progress="0.0"/>
+            <Text fx:id="infoText" stroke="BLACK" strokeType="OUTSIDE"
+                  strokeWidth="0.0" text="Cell Info" textAlignment="CENTER"
+                  wrappingWidth="230.0">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+            </Text>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fx:id="spiralPane" prefHeight="692.0" prefWidth="547.0"
+                    BorderPane.alignment="CENTER">
+            <Canvas fx:id="spiralCanvas" height="100.0" width="100.0"/>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <Button defaultButton="true" mnemonicParsing="false"
+                    onAction="#drawSpiral" prefHeight="25.0" prefWidth="200.0"
+                    text="Draw Spiral"/>
+            <Button mnemonicParsing="false" onAction="#saveCanvasAsImage"
+                    prefHeight="25.0" prefWidth="200.0" text="Save"/>
+        </HBox>
+    </bottom>
+    <right>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="295.0"
+              spacing="10.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <Label text="Selected Color Schemes"/>
+            <ListView fx:id="selectedColorSchemes" prefHeight="200.0"
+                      prefWidth="230.0">
+                <contextMenu>
+                    <ContextMenu>
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Remove"/>
+                        </items>
+                    </ContextMenu>
+                </contextMenu>
+            </ListView>
+            <Label text="Available Color Schemes"/>
+            <ListView fx:id="availableColorSchemes" layoutX="20.0"
+                      layoutY="261.0" prefHeight="200.0" prefWidth="200.0">
+                <contextMenu>
+                    <ContextMenu>
+                        <items>
+                            <MenuItem mnemonicParsing="false"
+                                      onAction="#removeColorSchemes"
+                                      text="Delete"/>
+                        </items>
+                    </ContextMenu>
+                </contextMenu>
+            </ListView>
+            <Separator prefWidth="200.0"/>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                    vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <ChoiceBox fx:id="highlightModeChoiceBox" prefHeight="25.0"
+                           prefWidth="237.0" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                <ChoiceBox fx:id="highlighterChoiceBox" prefWidth="150.0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="Highlighter" GridPane.rowIndex="2"/>
+                <Label layoutX="10.0" layoutY="47.0" text="Highlight Mode"
+                       GridPane.rowIndex="1"/>
+                <Label text="Cutoff" GridPane.rowIndex="3"/>
+                <TextField fx:id="cutoffTextField" text="100"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+            <Separator prefWidth="200.0"/>
+            <GridPane fx:id="colorSelectionGrid" vgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </GridPane>
+            <Separator layoutX="20.0" layoutY="60.0" prefWidth="200.0"/>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                       prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+                <Button fx:id="updateColorSchemeButton" mnemonicParsing="false"
+                        onAction="#updateColorScheme" text="Update Color Scheme"
+                        GridPane.columnIndex="1"/>
+                <Button defaultButton="true" layoutX="10.0" layoutY="13.0"
+                        mnemonicParsing="false" onAction="#addColorScheme"
+                        text="Add Color Scheme"/>
+            </GridPane>
+        </VBox>
+    </right>
+</BorderPane>
