@@ -48,6 +48,7 @@ import spirals.highlighters.GoldbachCount;
 import spirals.highlighters.Highlighter;
 import spirals.highlighters.IsPrime;
 import spirals.highlighters.IsTriangular;
+import spirals.highlighters.NameLengths;
 import spirals.highlighters.PrimeFactorCount;
 import util.Images;
 import util.InclusionCriterionFactory;
@@ -240,7 +241,8 @@ public class AppController implements Initializable {
                 new DiffFactorCount(),
                 new GoldbachCount(),
                 new IsTriangular(),
-                new CollatzLength()
+                new CollatzLength(),
+                new NameLengths()
         );
         highlighterChoiceBox.getSelectionModel().select(0);
 
