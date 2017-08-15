@@ -1,7 +1,6 @@
 package spirals;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.binding.DoubleBinding;
 import javafx.scene.canvas.GraphicsContext;
 import math.preprocessors.Preprocessor;
 import spirals.color_schemes.ColorScheme;
@@ -19,7 +18,7 @@ public class Spiral {
     private final Preprocessor preprocessor;
     private final ColorScheme colorScheme;
     private final Predicate<Integer> inclusionCriterion;
-    private DoubleProperty progress;
+    private DoubleBinding progress;
 
     public Spiral(Drawer drawer, Preprocessor preprocessor,
                   ColorScheme colorScheme, Predicate<Integer> inclusionCriterion) {
@@ -27,7 +26,12 @@ public class Spiral {
         this.preprocessor = preprocessor;
         this.colorScheme = colorScheme;
         this.inclusionCriterion = inclusionCriterion;
-        this.progress = new SimpleDoubleProperty(0);
+        this.progress = new DoubleBinding() {
+            @Override
+            protected double computeValue() {
+                return 0;
+            }
+        };
     }
 
     public void draw(GraphicsContext gc, int spiralLength, double elemSize) {
@@ -42,7 +46,7 @@ public class Spiral {
         return progress.get();
     }
 
-    public DoubleProperty progressProperty() {
+    public DoubleBinding progressProperty() {
         return progress;
     }
 

@@ -13,13 +13,18 @@ public class RegularPolygon {
     private final double inRadius;
     private final double[] xPoints;
     private final double[] yPoints;
-    private double centerX;
-    private double centerY;
+    private final double centerX;
+    private final double centerY;
 
-    public RegularPolygon(int numPoints, double outRadius) {
-        this(numPoints, outRadius, 0, 0);
-    }
-
+    /**
+     * Makes a regular polygon at a specific x and y location with the specified
+     * outer radius
+     *
+     * @param numPoints the number of vertices that this polygon will have
+     * @param outRadius the radius to the outer vertices of the polygon
+     * @param x         the x coordinate of the polygon
+     * @param y         the y coordinate of the polygon
+     */
     public RegularPolygon(int numPoints, double outRadius,
                           double x, double y) {
         this.numPoints = numPoints;
@@ -38,57 +43,70 @@ public class RegularPolygon {
         }
     }
 
+    /**
+     * Fills in this polygon in a graphics context with the specified color
+     * @param gc the graphics context in which to draw the shape
+     * @param color the color to use when drawing the shape
+     */
     public void fill(GraphicsContext gc, Color color) {
         gc.setFill(color);
         gc.fillPolygon(this.getXPoints(), this.getYPoints(), numPoints);
     }
 
+    /**
+     * Outlines this polygon in a graphics context with the specified color
+     * @param gc the graphics context in which to draw the shape
+     * @param color the color to use when drawing the shape
+     */
     public void stroke(GraphicsContext gc, Color color) {
         gc.setStroke(color);
         gc.strokePolygon(this.getXPoints(), this.getYPoints(), numPoints);
     }
 
+    /**
+     * Returns the x coordinates of each of this polygon's vertices
+     * @return the x coordinates of each of this polygon's vertices
+     */
     public double[] getXPoints() {
         return xPoints;
     }
 
+    /**
+     * Returns the y coordinates of each of this polygon's vertices
+     * @return the y coordinates of each of this polygon's vertices
+     */
     public double[] getYPoints() {
         return yPoints;
     }
 
-    public int getNumPoints() {
-        return numPoints;
-    }
-
-    public void translate(double x, double y) {
-        for (int i = 0; i < numPoints; i++) {
-            xPoints[i] += x;
-            yPoints[i] += y;
-        }
-        centerX += x;
-        centerY += y;
-    }
-
+    /**
+     * Returns the outer radius of this polygon
+     * @return the outer radius of this polygon
+     */
     public double getOutRadius() {
         return outRadius;
     }
 
+    /**
+     * Returns the x coordinate of the center of this polygon
+     * @return the x coordinate of the center of this polygon
+     */
     public double getCenterX() {
         return centerX;
     }
 
-    public void setCenterX(double centerX) {
-        this.centerX = centerX;
-    }
-
+    /**
+     * Returns the y coordinate of the center of this polygon
+     * @return the y coordinate of the center of this polygon
+     */
     public double getCenterY() {
         return centerY;
     }
 
-    public void setCenterY(double centerY) {
-        this.centerY = centerY;
-    }
-
+    /**
+     * Returns the inner radius of this polygon
+     * @return the inner radius of this polygon
+     */
     public double getInRadius() {
         return inRadius;
     }

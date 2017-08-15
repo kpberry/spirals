@@ -79,10 +79,11 @@ public class Collatz {
         }
     }
 
-    public static double getProgress() {
-        return progress.get();
-    }
-
+    /**
+     * Returns the progress for updating the current set of values.
+     *
+     * @return the current progress
+     */
     public static DoubleProperty progressProperty() {
         return progress;
     }

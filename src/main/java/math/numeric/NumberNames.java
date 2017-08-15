@@ -2,6 +2,8 @@ package math.numeric;
 
 /**
  * Created by Kevin on 8/14/2017 for Spirals.
+ * <p>
+ * Computes the english names of numbers, as well as their lengths.
  */
 public class NumberNames {
     private static final String[] small = {
@@ -30,8 +32,10 @@ public class NumberNames {
      * @param n the number to translate
      * @return the english name of the number
      */
-    public static String getNumberName(long n) {
-        if (n == 0) return "zero";
+    public static CharSequence getNumberName(long n) {
+        if (n == 0) {
+            return "zero";
+        }
         int count = 0;
         StringBuilder result = new StringBuilder();
         while (n > 0) {
@@ -54,12 +58,12 @@ public class NumberNames {
         if (n >= 100) {
             result += small[n / 100] + " hundred ";
         }
-        if (n % 100 >= 20) {
-            result += tens[(n % 100) / 10 - 1];
-            if (n % 10 != 0) {
+        if ((n % 100) >= 20) {
+            result += tens[((n % 100) / 10) - 1];
+            if ((n % 10) != 0) {
                 result += "-" + small[n % 10];
             }
-        } else if (n % 10 > 0 || n % 100 == 10) {
+        } else if (((n % 10) > 0) || ((n % 100) == 10)) {
             result += small[n % 20];
         }
         return result.trim();

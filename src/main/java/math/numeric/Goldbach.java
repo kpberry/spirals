@@ -3,22 +3,18 @@ package math.numeric;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Kevin on 5/29/2017 for Spirals.
- *
+ * <p>
+ * Computes the number of ways that numbers can be written as the sum of two
+ * primes.
  */
 public class Goldbach {
-    private static final String outFile = "out/goldbach_indices.csv";
     private static final DoubleProperty progress = new SimpleDoubleProperty(0);
     private static int[] goldbachIndices = new int[0];
 
@@ -34,80 +30,74 @@ public class Goldbach {
         return goldbachIndices[n];
     }
 
+    /**
+     * Updates the goldbach indices for all numbers up to and including n,
+     * caching them locally.
+     *
+     * @param n the number up to which values will be cached
+     */
+    @SuppressWarnings("StatementWithEmptyBody")
     public static synchronized void updateGoldbachIndices(int n) {
-        //TODO read goldbach indices from the file
-        if (n >= goldbachIndices.length) {
-            goldbachIndices = new int[n];
-
-            Primes.updateFactorCounts(n);
-            List<Integer> primes = Primes.getPrimes();
+        if (n > goldbachIndices.length) {
+            final int[] localGoldbachIndices = new int[n];
 
             progress.setValue(0);
 
-            for (int i = 0; i < n; i++) {
-                int index = 0;
-                int cur = 2;
-                goldbachIndices[i] = 0;
-                while ((cur <= (i / 2)) && (index < primes.size())) {
-                    if (Primes.isPrime(i - cur)) {
-                        goldbachIndices[i]++;
+            Primes.updateFactorCounts(n);
+            List<Integer> primes = Primes.getCalculatedPrimes();
+
+            ExecutorService executor = Executors.newCachedThreadPool();
+            int batchSize = 500;
+            for (int batch = 0; batch < n; batch += batchSize) {
+                final int batchFinal = batch;
+                executor.execute(() -> {
+                    if (1.0 * batchFinal / batchSize > progress.getValue()) {
+                        synchronized (progress) {
+                            progress.setValue(1.0 * batchFinal / batchSize);
+                        }
                     }
-                    index++;
-                    cur = primes.get(index);
-                }
-
-                if ((i & 0xFF) == 0) {
-                    progress.setValue(i / n);
-                }
+                    int runLength = Math.min(
+                            localGoldbachIndices.length - batchFinal, batchSize
+                    );
+                    for (int i = batchFinal; i < batchFinal + runLength; i++) {
+                        //no synchronization necessary because each array
+                        //index is only accessed by one thread
+                        localGoldbachIndices[i]
+                                = computeGoldbachIndex(i, primes);
+                    }
+                });
             }
+
+            try {
+                executor.shutdown();
+                while (!executor.awaitTermination(1000, TimeUnit.SECONDS)) ;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            goldbachIndices = localGoldbachIndices;
         }
     }
 
-    public static void main(String[] args) {
-        goldbachIndex(10);
-        goldbachIndex(20);
-        goldbachIndex(100);
-    }
-
-    public static void saveGoldbachIndices() {
-        saveGoldbachIndices(Paths.get(outFile));
-    }
-
-    public static void saveGoldbachIndices(Path outFile) {
-        //TODO make it so that values are only written if more values have been computed
-        try (BufferedWriter bw = Files.newBufferedWriter(outFile)) {
-            PrintWriter out = new PrintWriter(bw);
-            out.println(goldbachIndices.length);
-            for (int goldbachIndex : goldbachIndices) {
-                out.println(goldbachIndex);
+    private static int
+    computeGoldbachIndex(final int i, final List<Integer> primes) {
+        int result = 0;
+        int primeIndex = 0;
+        int cur = 2;
+        while ((cur <= (i >> 1)) && (primeIndex < primes.size())) {
+            if (Primes.isPrime(i - cur)) {
+                result++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cur = primes.get(++primeIndex);
         }
+        return result;
     }
 
-    public static void readGoldbachIndices() throws IOException {
-        readGoldbachIndices(Paths.get(outFile));
-    }
-
-    public static void readGoldbachIndices(Path inFile) throws IOException {
-        try (BufferedReader br = Files.newBufferedReader(inFile)) {
-            Scanner sc = new Scanner(br);
-            if (sc.hasNextLine()) {
-                goldbachIndices = new int[sc.nextInt()];
-                int i = 0;
-                while (sc.hasNextInt()) {
-                    goldbachIndices[i] = sc.nextInt();
-                    i++;
-                }
-            }
-        }
-    }
-
-    public static double getProgress() {
-        return progress.get();
-    }
-
+    /**
+     * Returns the progress for updating the current set of values.
+     *
+     * @return the current progress
+     */
     public static DoubleProperty progressProperty() {
         return progress;
     }

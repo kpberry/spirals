@@ -429,7 +429,7 @@ public class AppController implements Initializable {
                 .forEach(i -> preprocessors.add(i.getPreprocessor()));
         BulkPreprocess preprocessor = new BulkPreprocess(preprocessors);
 
-        spiralProgress.progressProperty().bind(preprocessor.progressBinding());
+        spiralProgress.progressProperty().bind(preprocessor.progressProperty());
 
         ColorScheme cs = new PriorityColorScheme(
                 selectedColorSchemes.getItems().toArray(

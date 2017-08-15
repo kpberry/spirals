@@ -1,18 +1,24 @@
 package math.preprocessors;
 
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.value.ObservableValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals.
- *
+ * <p>
+ * Class that aggregates preprocessors and can execute them in sequence
  */
 public class BulkPreprocess extends Preprocessor {
     private final Collection<Preprocessor> preprocessors;
 
+    /**
+     * Constructs a preprocessor from a sequence of preprocessors which can be
+     * run as a single preprocessing step
+     *
+     * @param preprocessors the preprocessors to run in sequence
+     */
     public BulkPreprocess(Collection<Preprocessor> preprocessors) {
         this.preprocessors = new ArrayList<>(preprocessors);
     }
@@ -22,7 +28,8 @@ public class BulkPreprocess extends Preprocessor {
         preprocessors.parallelStream().forEach(p -> p.accept(integer));
     }
 
-    public ObservableValue progressBinding() {
+    @Override
+    public DoubleBinding progressProperty() {
         DoubleBinding result = new DoubleBinding() {
             @Override
             protected double computeValue() {
@@ -34,7 +41,7 @@ public class BulkPreprocess extends Preprocessor {
             result = result.add(p.progressProperty());
         }
 
-        //result = result.divide(preprocessors.size());
+        result = result.divide(preprocessors.size());
 
         return result;
     }

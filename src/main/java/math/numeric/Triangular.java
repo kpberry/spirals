@@ -8,20 +8,25 @@ import java.util.HashSet;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
- *
+ * <p>
+ * Efficiently computes triangle numbers.
  */
 public class Triangular {
     private static final Collection<Integer> triangleNumbers = new HashSet<>();
     private static final DoubleProperty progress = new SimpleDoubleProperty();
     private static int maxRequested = 0;
 
+    /**
+     * Calculates and caches the list of triangle numbers up to n
+     *
+     * @param n the number up to which triangle numbers will be calculated
+     */
     public static synchronized void updateTriangleNumbers(int n) {
         if (n > maxRequested) {
             maxRequested = n;
         } else {
             return;
         }
-        //TODO could start somewhere around maxRequested for efficiency
 
         progress.setValue(0);
 
@@ -38,6 +43,11 @@ public class Triangular {
         }
     }
 
+    /**
+     * Returns whether or not a number is triangular
+     * @param n the number to test
+     * @return whether or not n is triangular
+     */
     public static boolean isTriangular(int n) {
         if (n > maxRequested) {
             updateTriangleNumbers(n);
@@ -45,10 +55,10 @@ public class Triangular {
         return triangleNumbers.contains(n);
     }
 
-    public static double getProgress() {
-        return progress.get();
-    }
-
+    /**
+     * Returns the progress for updating the current set of values.
+     * @return the current progress
+     */
     public static DoubleProperty progressProperty() {
         return progress;
     }

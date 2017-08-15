@@ -1,6 +1,6 @@
 package math.preprocessors;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.binding.DoubleBinding;
 import math.numeric.Triangular;
 
 import static math.numeric.Triangular.updateTriangleNumbers;
@@ -8,6 +8,7 @@ import static math.numeric.Triangular.updateTriangleNumbers;
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
  *
+ * Initializes triangular numbers as a preprocessing step.
  */
 public class IdentifyTriangularNumbers extends Preprocessor {
     @Override
@@ -21,7 +22,7 @@ public class IdentifyTriangularNumbers extends Preprocessor {
     }
 
     @Override
-    public DoubleProperty progressProperty() {
-        return Triangular.progressProperty();
+    public DoubleBinding progressProperty() {
+        return Triangular.progressProperty().add(0);
     }
 }

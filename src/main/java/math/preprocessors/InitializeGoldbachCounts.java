@@ -1,6 +1,6 @@
 package math.preprocessors;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.binding.DoubleBinding;
 import math.numeric.Goldbach;
 
 import static math.numeric.Primes.updateFactorCounts;
@@ -8,6 +8,7 @@ import static math.numeric.Primes.updateFactorCounts;
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
  *
+ * Initializes goldbach counts as a preprocessing step.
  */
 public class InitializeGoldbachCounts extends Preprocessor {
     @Override
@@ -22,7 +23,7 @@ public class InitializeGoldbachCounts extends Preprocessor {
     }
 
     @Override
-    public DoubleProperty progressProperty() {
-        return Goldbach.progressProperty();
+    public DoubleBinding progressProperty() {
+        return Goldbach.progressProperty().add(0);
     }
 }

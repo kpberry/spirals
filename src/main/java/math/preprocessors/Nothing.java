@@ -1,11 +1,11 @@
 package math.preprocessors;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.binding.DoubleBinding;
 
 /**
  * Created by Kevin on 6/27/2017 for Spirals.
  *
+ * Does nothing as a preprocessing step.
  */
 public class Nothing extends Preprocessor {
     @Override
@@ -13,7 +13,12 @@ public class Nothing extends Preprocessor {
     }
 
     @Override
-    public DoubleProperty progressProperty() {
-        return new SimpleDoubleProperty(1);
+    public DoubleBinding progressProperty() {
+        return new DoubleBinding() {
+            @Override
+            protected double computeValue() {
+                return 1;
+            }
+        };
     }
 }

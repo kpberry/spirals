@@ -1,6 +1,6 @@
 package math.preprocessors;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.binding.DoubleBinding;
 import math.numeric.Primes;
 
 import static math.numeric.Primes.updateFactorCounts;
@@ -8,6 +8,7 @@ import static math.numeric.Primes.updateFactorCounts;
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
  *
+ * Initializes factor counts as a preprocessing step.
  */
 public class InitializeFactorCounts extends Preprocessor {
     @Override
@@ -21,7 +22,7 @@ public class InitializeFactorCounts extends Preprocessor {
     }
 
     @Override
-    public DoubleProperty progressProperty() {
-        return Primes.progressProperty();
+    public DoubleBinding progressProperty() {
+        return Primes.progressProperty().add(0);
     }
 }
