@@ -12,11 +12,12 @@ import java.util.Map;
 
 /**
  * Created by Kevin on 6/25/2017 for Spirals.
+ * List cell which can be dragged.
  */
-public class DragCell<T> extends ListCell<T> {
+class DragCell<T> extends ListCell<T> {
     private static final Map<String, Object> clipboard = new HashMap<>();
 
-    public DragCell() {
+    DragCell() {
         ListCell thisCell = this;
 
         setOnDragDetected(event -> {

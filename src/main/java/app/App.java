@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.
+ * Interface for drawing math spirals.
  */
 public class App extends Application {
     @Override

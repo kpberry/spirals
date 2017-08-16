@@ -9,9 +9,10 @@ import spirals.color_schemes.ColorScheme;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals.
+ * Box which displays the relevant attributes of a color scheme.
  */
-public class ColorSchemeBox extends HBox {
-    public ColorSchemeBox(ColorScheme cs) {
+class ColorSchemeBox extends HBox {
+    ColorSchemeBox(ColorScheme cs) {
         setSpacing(5);
         String s = cs.getName() + " [" + cs.getIntensityFunction() + "]";
         getChildren().add(new Label(s));

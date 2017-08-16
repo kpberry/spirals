@@ -4,11 +4,12 @@ import javafx.scene.control.TextField;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
+ * Text field which only accepts valid integers.
  */
-public class IntField {
+class IntField {
     private final TextField source;
 
-    public IntField(TextField source) {
+    IntField(TextField source) {
         this.source = source;
         this.source.textProperty().addListener(
                 (obs, oldValue, newValue) -> {
@@ -33,7 +34,7 @@ public class IntField {
         );
     }
 
-    public int getValue() {
+    int getValue() {
         String text = source.getText();
         if (text.isEmpty()) {
             return 0;

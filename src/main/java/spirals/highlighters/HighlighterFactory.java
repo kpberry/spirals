@@ -1,52 +1,40 @@
-package util;
-
-import math.inclusion_criteria.InclusionCriterion;
+package spirals.highlighters;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 /**
  * Created by Kevin on 6/29/2017 for Spirals.
  */
 @SuppressWarnings("unchecked")
-public class InclusionCriterionFactory {
+public class HighlighterFactory {
     private final String expr;
-    private final String variable;
-    private final InclusionCriterion instance;
+    private final PreprocessedFn instance;
     private Class<?> compiledClass;
+    private Method compiledMethod;
     private String compileErrors;
 
-    public InclusionCriterionFactory(String expr, String variable)
-            throws NoSuchMethodException, IOException, ClassNotFoundException,
-            IllegalAccessException, InstantiationException {
+    public HighlighterFactory(String expr) throws NoSuchMethodException,
+            IOException, ClassNotFoundException, IllegalAccessException,
+            InstantiationException {
         this.expr = expr;
-        this.compileErrors = "";
-        if ((variable == null) || variable.matches("\\s*")) {
-            this.variable = "n";
-        } else {
-            this.variable = variable;
-        }
         this.compile();
-        this.instance = new InclusionCriterion() {
-            private final Predicate<Integer> instance
-                    = (Predicate<Integer>) compiledClass.newInstance();
+        this.instance = new PreprocessedFn() {
+            private final Function<Integer, Double> instance
+                    = (Function<Integer, Double>) compiledClass.newInstance();
 
             @Override
-            public boolean test(Integer integer) {
-                return instance.test(integer);
-            }
-
-            @Override
-            public String toString() {
-                return variable + ": " + expr;
+            public Double apply(Integer integer) {
+                return this.instance.apply(integer);
             }
         };
     }
@@ -59,14 +47,11 @@ public class InclusionCriterionFactory {
         String fileName = file.getFileName().toString();
         String className = fileName.substring(0, fileName.lastIndexOf("."));
         String output =
-                "import java.util.function.Predicate;\n"
-                        + "import static java.lang.Math.*;\n"
+                "import java.util.function.Function;\n"
                         + "public class " + className
-                        + " implements Predicate<Integer> {\n"
-                        + "\tpublic boolean test(Integer "
-                        + this.variable
-                        + ") {\n\t\t"
-                        + " return " + expr + ";\n\t}"
+                        + " implements Function<Integer, Double> {\n"
+                        + "\tpublic Double apply(Integer n) {\n\t\t"
+                        + " return " + expr + "\n\t}"
                         + "\n}";
         Files.write(file, output.getBytes(StandardCharsets.UTF_8));
 
@@ -87,17 +72,19 @@ public class InclusionCriterionFactory {
                 file.getParent().toUri().toURL()
         });
         compiledClass = Class.forName(className, true, loader);
-        Method compiledMethod
-                = compiledClass.getDeclaredMethod("test", Integer.class);
+        compiledMethod = compiledClass.getDeclaredMethod(
+                "apply", Integer.class
+        );
         compiledMethod.setAccessible(true);
     }
 
-    public InclusionCriterion getInstance() {
-        return instance;
+    public double invoke(int n) throws InvocationTargetException,
+            IllegalAccessException {
+        return (double) this.compiledMethod.invoke(this.instance, n);
     }
 
-    public String getCompileErrors() {
-        return compileErrors;
+    public PreprocessedFn getInstance() {
+        return instance;
     }
 
     public boolean hasCompileErrors() {

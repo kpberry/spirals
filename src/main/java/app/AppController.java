@@ -26,6 +26,7 @@ import math.inclusion_criteria.Any;
 import math.inclusion_criteria.Even;
 import math.inclusion_criteria.GT_Zero;
 import math.inclusion_criteria.InclusionCriterion;
+import math.inclusion_criteria.InclusionCriterionFactory;
 import math.inclusion_criteria.LogN_LT_FC;
 import math.inclusion_criteria.Odd;
 import math.preprocessors.BulkPreprocess;
@@ -51,7 +52,6 @@ import spirals.highlighters.NameLengths;
 import spirals.highlighters.PreprocessedFn;
 import spirals.highlighters.PrimeFactorCount;
 import util.Images;
-import util.InclusionCriterionFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,6 +65,8 @@ import static javafx.scene.paint.Color.BLACK;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.
+ * Manages interactions between the spirals interface and the backend
+ * spiral calculations.
  */
 public class AppController implements Initializable {
     private final double scalingRate = 0.95;
@@ -327,14 +329,14 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    public void saveCanvasAsImage() {
+    private void saveCanvasAsImage() {
         double total = canvasScaleField.getMax() + canvasScaleField.getMin();
         canvasScaleField.setValue(total / 2);
         Images.captureImage(spiralCanvas);
     }
 
     @FXML
-    public void updateColorScheme() {
+    private void updateColorScheme() {
         ColorScheme cs = createColorScheme();
         int availableIndex = availableColorSchemes.getItems().indexOf(
                 availableColorSchemes.getSelectionModel().getSelectedItem()
@@ -380,7 +382,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    void addColorScheme() {
+    private void addColorScheme() {
         ColorScheme cs = createColorScheme();
         if (!selectedColorSchemes.getItems().contains(cs)) {
             selectedColorSchemes.getItems().add(cs);
@@ -401,7 +403,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    public void removeColorSchemes() {
+    private void removeColorSchemes() {
         //Copy is necessary since the selected items are observable, so deleting
         //them in one list (resulting in a new set of selected items) would
         //result in the incorrect items being deleted in the other list
@@ -413,7 +415,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    public void drawSpiral() {
+    private void drawSpiral() {
         Predicate<Integer> inclusionCriteria = new Any();
         for (InclusionCriterion i
                 : inclusionCriteriaListView.getSelectionModel()
