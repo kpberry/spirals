@@ -65,10 +65,9 @@ public class Square implements Drawer {
         private int strideIndex;
         private int index;
         private int value;
-        private int drawn;
         private Point2D cur;
 
-        public SquareIterator(int length, Predicate<Integer> ic) {
+        SquareIterator(int length, Predicate<Integer> ic) {
             this.length = length;
             this.ic = ic;
             direction = Direction.RIGHT;
@@ -77,7 +76,6 @@ public class Square implements Drawer {
             cur = new Point2D(0, 0);
             index = 0;
             value = 0;
-            drawn = 0;
         }
 
         @Override
@@ -120,7 +118,6 @@ public class Square implements Drawer {
             }
 
             strideIndex++;
-            drawn++;
             value = index;
             index++;
             return prev;

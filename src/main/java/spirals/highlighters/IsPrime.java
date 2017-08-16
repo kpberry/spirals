@@ -9,7 +9,7 @@ import static math.numeric.Primes.isPrime;
  * Created by Kevin on 6/26/2017 for Spirals.
  *
  */
-public class IsPrime implements Highlighter {
+public class IsPrime implements PreprocessedFn {
 
     @Override
     public Double apply(Integer integer) {

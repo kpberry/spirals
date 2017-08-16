@@ -88,7 +88,8 @@ public class DragCell<T> extends ListCell<T> {
                     }
                 }
 
-                for (int i = 0; (i < items.size()) && (thisItemIndex == -1); i++) {
+                for (int i = 0;
+                     (i < items.size()) && (thisItemIndex == -1); i++) {
                     if (items.get(i).toString().equals(thisItem.toString())) {
                         thisItemIndex = i;
                     }

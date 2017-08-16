@@ -2,7 +2,7 @@ package spirals.color_schemes;
 
 import javafx.scene.paint.Color;
 import spirals.highlight_modes.HighlightMode;
-import spirals.highlighters.Highlighter;
+import spirals.highlighters.PreprocessedFn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,11 +10,20 @@ import java.util.List;
 
 /**
  * Created by Kevin on 5/23/2017 for Spirals.
- *
+ * <p>
+ * Class that aggregates an array of color schemes and evaluates each in
+ * sequence until a non-low color is found. If no non-low color is found,
+ * returns black.
  */
 public class PriorityColorScheme extends ColorScheme {
     private final ColorScheme[] colorSchemes;
 
+    /**
+     * Constructs a new priority color scheme from an array of other color
+     * schemes, ordered by priority.
+     *
+     * @param priorityOrderedColorSchemes the color schemes to aggregate
+     */
     public PriorityColorScheme(ColorScheme[] priorityOrderedColorSchemes) {
         super(
                 new HighlightMode(
@@ -36,20 +45,22 @@ public class PriorityColorScheme extends ColorScheme {
         return colors;
     }
 
-    private static Highlighter aggregateHighlighter(ColorScheme[] colorSchemes) {
+    private static PreprocessedFn
+    aggregateHighlighter(ColorScheme[] colorSchemes) {
         return integer -> {
-            for (ColorScheme cs : colorSchemes) {
+            for (final ColorScheme cs : colorSchemes) {
                 if (!cs.isLow(integer)) {
-                    return cs.applyHighlighter(integer);
+                    return cs.apply(integer);
                 }
             }
-            return colorSchemes[colorSchemes.length - 1].applyHighlighter(integer);
+            final ColorScheme cs = colorSchemes[colorSchemes.length - 1];
+            return cs.apply(integer);
         };
     }
 
     private static int numRequiredColors(ColorScheme[] colorSchemes) {
         int count = 0;
-        for (ColorScheme cs : colorSchemes) {
+        for (final ColorScheme cs : colorSchemes) {
             count += cs.getNumRequiredColors();
         }
         return count;

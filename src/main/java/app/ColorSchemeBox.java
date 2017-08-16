@@ -14,7 +14,7 @@ import spirals.color_schemes.ColorScheme;
 public class ColorSchemeBox extends HBox {
     public ColorSchemeBox(ColorScheme cs) {
         setSpacing(5);
-        String s = cs.getName() + " [" + cs.getHighlighter() + "]";
+        String s = cs.getName() + " [" + cs.getIntensityFunction() + "]";
         getChildren().add(new Label(s));
         Pane pane = new Pane();
         HBox.setHgrow(pane, Priority.ALWAYS);

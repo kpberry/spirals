@@ -45,10 +45,10 @@ import spirals.highlighters.CollatzLength;
 import spirals.highlighters.DiffFactorCount;
 import spirals.highlighters.FactorCount;
 import spirals.highlighters.GoldbachCount;
-import spirals.highlighters.Highlighter;
 import spirals.highlighters.IsPrime;
 import spirals.highlighters.IsTriangular;
 import spirals.highlighters.NameLengths;
+import spirals.highlighters.PreprocessedFn;
 import spirals.highlighters.PrimeFactorCount;
 import util.Images;
 import util.InclusionCriterionFactory;
@@ -86,7 +86,7 @@ public class AppController implements Initializable {
     @FXML
     private ChoiceBox<Drawer> drawerChoiceBox;
     @FXML
-    private ChoiceBox<Highlighter> highlighterChoiceBox;
+    private ChoiceBox<PreprocessedFn> highlighterChoiceBox;
     @FXML
     private GridPane colorSelectionGrid;
     @FXML
@@ -317,7 +317,7 @@ public class AppController implements Initializable {
                     HighlightMode hm = newValue.getHighlightMode();
                     highlightModeChoiceBox.getSelectionModel().select(hm);
                     AppController.this.updateColorSelectionGrid(hm);
-                    Highlighter h = newValue.getHighlighter();
+                    PreprocessedFn h = newValue.getIntensityFunction();
                     highlighterChoiceBox.getSelectionModel().select(h);
                     cutoffTextField.setText(newValue.getCutoff() + "");
                     for (int i = 0; i < newValue.getNumRequiredColors(); i++) {
@@ -393,7 +393,7 @@ public class AppController implements Initializable {
 
     private ColorScheme createColorScheme() {
         int cutoff = intCutoffTextField.getValue();
-        Highlighter h = highlighterChoiceBox.getValue();
+        PreprocessedFn h = highlighterChoiceBox.getValue();
         HighlightMode hm = highlightModeChoiceBox.getValue();
         List<Color> colors = new ArrayList<>();
         colorPickers.forEach(c -> colors.add(c.getValue()));

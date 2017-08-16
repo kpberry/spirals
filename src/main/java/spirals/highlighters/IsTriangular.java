@@ -9,7 +9,7 @@ import static math.numeric.Triangular.isTriangular;
  * Created by Kevin on 6/26/2017 for Spirals.
  *
  */
-public class IsTriangular implements Highlighter {
+public class IsTriangular implements PreprocessedFn {
     @Override
     public Double apply(Integer integer) {
         return isTriangular(integer) ? 1.0 : 0.0;

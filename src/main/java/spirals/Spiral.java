@@ -5,7 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import math.preprocessors.Preprocessor;
 import spirals.color_schemes.ColorScheme;
 import spirals.drawers.Drawer;
-import spirals.highlighters.Highlighter;
 
 import java.util.function.Predicate;
 
@@ -20,8 +19,8 @@ public class Spiral {
     private final Predicate<Integer> inclusionCriterion;
     private DoubleBinding progress;
 
-    public Spiral(Drawer drawer, Preprocessor preprocessor,
-                  ColorScheme colorScheme, Predicate<Integer> inclusionCriterion) {
+    public Spiral(Drawer drawer, Preprocessor preprocessor, ColorScheme colorScheme,
+                  Predicate<Integer> inclusionCriterion) {
         this.drawer = drawer;
         this.preprocessor = preprocessor;
         this.colorScheme = colorScheme;
@@ -42,16 +41,8 @@ public class Spiral {
         );
     }
 
-    public double getProgress() {
-        return progress.get();
-    }
-
     public DoubleBinding progressProperty() {
         return progress;
-    }
-
-    public Drawer getDrawer() {
-        return drawer;
     }
 
     public Preprocessor getPreprocessor() {
@@ -62,15 +53,7 @@ public class Spiral {
         return colorScheme;
     }
 
-    public Predicate<Integer> getInclusionCriterion() {
-        return inclusionCriterion;
-    }
-
-    public Highlighter getHighlighter() {
-        return colorScheme.getHighlighter();
-    }
-
     public double applyHighlighter(int n) {
-        return this.colorScheme.applyHighlighter(n);
+        return this.colorScheme.apply(n);
     }
 }

@@ -10,7 +10,7 @@ import java.util.function.Function;
  *
  */
 @FunctionalInterface
-public interface Highlighter extends Function<Integer, Double> {
+public interface PreprocessedFn extends Function<Integer, Double> {
     default Preprocessor getPreprocessor() {
         return new Nothing();
     }

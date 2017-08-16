@@ -10,10 +10,11 @@ import static math.numeric.Primes.primeFactorCount;
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
  */
-public class DiffFactorCount implements Highlighter {
+public class DiffFactorCount implements PreprocessedFn {
     @Override
     public Double apply(Integer integer) {
-        return (double) factorCount(integer) * ((double) primeFactorCount(integer) + 1);
+        return (double) factorCount(integer)
+                * ((double) primeFactorCount(integer) + 1);
     }
 
     @Override

@@ -37,8 +37,8 @@ public class HighlightMode {
 
         HighlightMode that = (HighlightMode) o;
 
-        return (numRequiredColors == that.numRequiredColors)
-                && ((name != null) ? name.equals(that.name) : (that.name == null));
+        return (numRequiredColors == that.numRequiredColors) && ((name != null)
+                ? name.equals(that.name) : (that.name == null));
     }
 
     @Override

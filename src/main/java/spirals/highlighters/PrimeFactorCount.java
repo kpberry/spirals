@@ -8,7 +8,7 @@ import static math.numeric.Primes.primeFactorCount;
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
  */
-public class PrimeFactorCount implements Highlighter {
+public class PrimeFactorCount implements PreprocessedFn {
     @Override
     public Double apply(Integer integer) {
         return (double) primeFactorCount(integer);

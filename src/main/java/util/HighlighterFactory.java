@@ -1,6 +1,6 @@
 package util;
 
-import spirals.highlighters.Highlighter;
+import spirals.highlighters.PreprocessedFn;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.function.Function;
 @SuppressWarnings("unchecked")
 public class HighlighterFactory {
     private final String expr;
-    private final Highlighter instance;
+    private final PreprocessedFn instance;
     private Class<?> compiledClass;
     private Method compiledMethod;
     private String compileErrors;
@@ -31,7 +31,7 @@ public class HighlighterFactory {
             InstantiationException {
         this.expr = expr;
         this.compile();
-        this.instance = new Highlighter() {
+        this.instance = new PreprocessedFn() {
             private final Function<Integer, Double> instance
                     = (Function<Integer, Double>) compiledClass.newInstance();
 
@@ -84,7 +84,7 @@ public class HighlighterFactory {
         return (double) this.compiledMethod.invoke(this.instance, n);
     }
 
-    public Highlighter getInstance() {
+    public PreprocessedFn getInstance() {
         return instance;
     }
 

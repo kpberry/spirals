@@ -8,7 +8,7 @@ import static math.numeric.NumberNames.getNumberNameLength;
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
  */
-public class NameLengths implements Highlighter {
+public class NameLengths implements PreprocessedFn {
     @Override
     public Double apply(Integer integer) {
         return (double) getNumberNameLength(integer);
