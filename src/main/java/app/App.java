@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.
- *
  */
 public class App extends Application {
     @Override

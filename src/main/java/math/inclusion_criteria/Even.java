@@ -5,9 +5,8 @@ import math.preprocessors.Preprocessor;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals.
- *
+ * <p>
  * Criterion which filters by whether or not a number is even.
- *
  */
 public class Even implements InclusionCriterion {
     @Override

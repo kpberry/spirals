@@ -15,7 +15,6 @@ import java.util.function.Predicate;
 
 /**
  * Created by Kevin on 6/29/2017 for Spirals.
- *
  */
 @SuppressWarnings("unchecked")
 public class InclusionCriterionFactory {
@@ -64,7 +63,9 @@ public class InclusionCriterionFactory {
                         + "import static java.lang.Math.*;\n"
                         + "public class " + className
                         + " implements Predicate<Integer> {\n"
-                        + "\tpublic boolean test(Integer " + this.variable + ") {\n\t\t"
+                        + "\tpublic boolean test(Integer "
+                        + this.variable
+                        + ") {\n\t\t"
                         + " return " + expr + ";\n\t}"
                         + "\n}";
         Files.write(file, output.getBytes(StandardCharsets.UTF_8));
@@ -86,7 +87,8 @@ public class InclusionCriterionFactory {
                 file.getParent().toUri().toURL()
         });
         compiledClass = Class.forName(className, true, loader);
-        Method compiledMethod = compiledClass.getDeclaredMethod("test", Integer.class);
+        Method compiledMethod
+                = compiledClass.getDeclaredMethod("test", Integer.class);
         compiledMethod.setAccessible(true);
     }
 

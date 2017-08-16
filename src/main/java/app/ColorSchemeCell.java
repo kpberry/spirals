@@ -4,7 +4,6 @@ import spirals.color_schemes.ColorScheme;
 
 /**
  * Created by Kevin on 6/16/2017 for Spirals.
- *
  */
 class ColorSchemeCell extends DragCell<ColorScheme> {
     @Override

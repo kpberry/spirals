@@ -7,9 +7,8 @@ import static math.numeric.Primes.isPrime;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
  * Criterion which filters by whether or not a number is prime.
- *
  */
 public class Prime implements InclusionCriterion {
     @Override

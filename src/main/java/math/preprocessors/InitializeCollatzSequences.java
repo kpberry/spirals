@@ -7,7 +7,7 @@ import static math.numeric.Collatz.updateCollatzLengths;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals.
- *
+ * <p>
  * Initialize collatz sequences as a preprocessing step.
  */
 public class InitializeCollatzSequences extends Preprocessor {

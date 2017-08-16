@@ -11,11 +11,12 @@ import java.nio.file.Path;
 
 /**
  * Created by Kevin on 5/19/2017 for genes for Spirals.
- *
  */
 public class Images {
     public static void captureImage(Canvas canvas) {
-        captureImage(canvas, DataLogging.getNumberedOutputFile("images", "png"));
+        captureImage(
+                canvas, DataLogging.getNumberedOutputFile("images", "png")
+        );
     }
 
     public static void captureImage(Canvas canvas, Path destination) {

@@ -21,7 +21,7 @@ public class Binary extends ColorScheme {
      * @param colors the colors to choose from
      * @param fn     the function which will determine if values are low or high
      */
-    public Binary(List<Color> colors, PreprocessedFn fn) {
+    Binary(List<Color> colors, PreprocessedFn fn) {
         super(new spirals.highlight_modes.Binary(), colors, fn, -1);
         off = getColor(0);
         on = getColor(1);

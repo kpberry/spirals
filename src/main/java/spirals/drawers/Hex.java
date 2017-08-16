@@ -9,12 +9,13 @@ import java.util.function.Predicate;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
+ * Class which draws spirals with a hexagon tiling.
  */
 public class Hex implements Drawer {
     @Override
-    public int mousePositionToN(GraphicsContext gc, int length,
-                                double mouseX, double mouseY,
+    public int mousePositionToN(double mouseX, double mouseY,
+                                GraphicsContext gc, int length,
                                 double elemSize, Predicate<Integer> ic) {
         double cx = gc.getCanvas().getWidth() / 2;
         double cy = gc.getCanvas().getHeight() / 2;

@@ -18,7 +18,7 @@ public class MultipleOfBase extends ColorScheme {
      * @param colors list which should contain one color to use
      * @param fn     the function which will determine the color's intensity
      */
-    public MultipleOfBase(List<Color> colors, PreprocessedFn fn) {
+    MultipleOfBase(List<Color> colors, PreprocessedFn fn) {
         super(new spirals.highlight_modes.MultipleOfBase(), colors, fn, -1);
         base = getColor(0);
     }

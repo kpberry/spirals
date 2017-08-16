@@ -45,6 +45,7 @@ public class Triangular {
 
     /**
      * Returns whether or not a number is triangular
+     *
      * @param n the number to test
      * @return whether or not n is triangular
      */
@@ -57,6 +58,7 @@ public class Triangular {
 
     /**
      * Returns the progress for updating the current set of values.
+     *
      * @return the current progress
      */
     public static DoubleProperty progressProperty() {

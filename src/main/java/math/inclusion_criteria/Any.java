@@ -5,9 +5,8 @@ import math.preprocessors.Preprocessor;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
  * Do nothing filter.
- *
  */
 public class Any implements InclusionCriterion {
     @Override

@@ -23,7 +23,7 @@ public class LERP extends ColorScheme {
      * @param fn     the function which will determine if values are low or high
      * @param cutoff the cutoff above which all colors have the same value
      */
-    public LERP(List<Color> colors, PreprocessedFn fn, int cutoff) {
+    LERP(List<Color> colors, PreprocessedFn fn, int cutoff) {
         super(new spirals.highlight_modes.LERP(), colors, fn, cutoff);
         this.low = getColor(0);
         this.high = getColor(1);

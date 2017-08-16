@@ -25,6 +25,7 @@ public class PriorityColorScheme extends ColorScheme {
      * @param priorityOrderedColorSchemes the color schemes to aggregate
      */
     public PriorityColorScheme(ColorScheme[] priorityOrderedColorSchemes) {
+        //TODO put this in color scheme factory as well
         super(
                 new HighlightMode(
                         "Priority Aggregate",

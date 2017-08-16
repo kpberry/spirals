@@ -9,7 +9,6 @@ import spirals.color_schemes.ColorScheme;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals.
- *
  */
 public class ColorSchemeBox extends HBox {
     public ColorSchemeBox(ColorScheme cs) {

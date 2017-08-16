@@ -7,7 +7,7 @@ import static math.numeric.Primes.updatePrimeFactorCounts;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
  * Initializes prime factor counts as a preprocessing step.
  */
 public class InitializePrimeFactorCounts extends Preprocessor {

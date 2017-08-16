@@ -4,7 +4,6 @@ import javafx.scene.control.TextField;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
- *
  */
 public class IntField {
     private final TextField source;

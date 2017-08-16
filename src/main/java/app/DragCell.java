@@ -12,7 +12,6 @@ import java.util.Map;
 
 /**
  * Created by Kevin on 6/25/2017 for Spirals.
- *
  */
 public class DragCell<T> extends ListCell<T> {
     private static final Map<String, Object> clipboard = new HashMap<>();

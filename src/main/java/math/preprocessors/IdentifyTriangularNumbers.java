@@ -7,7 +7,7 @@ import static math.numeric.Triangular.updateTriangleNumbers;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
  * Initializes triangular numbers as a preprocessing step.
  */
 public class IdentifyTriangularNumbers extends Preprocessor {

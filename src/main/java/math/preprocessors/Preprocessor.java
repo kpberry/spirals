@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 /**
  * Created by Kevin on 6/27/2017 for Spirals.
- *
+ * <p>
  * Class that allows for preprocessing of integer sequences.
  */
 public abstract class Preprocessor implements Consumer<Integer> {

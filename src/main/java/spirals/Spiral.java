@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
- *
  */
 public class Spiral {
     private final Drawer drawer;
@@ -19,7 +18,8 @@ public class Spiral {
     private final Predicate<Integer> inclusionCriterion;
     private DoubleBinding progress;
 
-    public Spiral(Drawer drawer, Preprocessor preprocessor, ColorScheme colorScheme,
+    public Spiral(Drawer drawer, Preprocessor preprocessor,
+                  ColorScheme colorScheme,
                   Predicate<Integer> inclusionCriterion) {
         this.drawer = drawer;
         this.preprocessor = preprocessor;

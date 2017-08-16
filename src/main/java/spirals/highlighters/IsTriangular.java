@@ -7,7 +7,6 @@ import static math.numeric.Triangular.isTriangular;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
- *
  */
 public class IsTriangular implements PreprocessedFn {
     @Override

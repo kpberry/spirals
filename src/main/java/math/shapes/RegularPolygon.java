@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
- *
  */
 public class RegularPolygon {
     private final int numPoints;
@@ -45,7 +44,8 @@ public class RegularPolygon {
 
     /**
      * Fills in this polygon in a graphics context with the specified color
-     * @param gc the graphics context in which to draw the shape
+     *
+     * @param gc    the graphics context in which to draw the shape
      * @param color the color to use when drawing the shape
      */
     public void fill(GraphicsContext gc, Color color) {
@@ -55,7 +55,8 @@ public class RegularPolygon {
 
     /**
      * Outlines this polygon in a graphics context with the specified color
-     * @param gc the graphics context in which to draw the shape
+     *
+     * @param gc    the graphics context in which to draw the shape
      * @param color the color to use when drawing the shape
      */
     public void stroke(GraphicsContext gc, Color color) {
@@ -65,6 +66,7 @@ public class RegularPolygon {
 
     /**
      * Returns the x coordinates of each of this polygon's vertices
+     *
      * @return the x coordinates of each of this polygon's vertices
      */
     public double[] getXPoints() {
@@ -73,6 +75,7 @@ public class RegularPolygon {
 
     /**
      * Returns the y coordinates of each of this polygon's vertices
+     *
      * @return the y coordinates of each of this polygon's vertices
      */
     public double[] getYPoints() {
@@ -81,6 +84,7 @@ public class RegularPolygon {
 
     /**
      * Returns the outer radius of this polygon
+     *
      * @return the outer radius of this polygon
      */
     public double getOutRadius() {
@@ -89,6 +93,7 @@ public class RegularPolygon {
 
     /**
      * Returns the x coordinate of the center of this polygon
+     *
      * @return the x coordinate of the center of this polygon
      */
     public double getCenterX() {
@@ -97,6 +102,7 @@ public class RegularPolygon {
 
     /**
      * Returns the y coordinate of the center of this polygon
+     *
      * @return the y coordinate of the center of this polygon
      */
     public double getCenterY() {
@@ -105,6 +111,7 @@ public class RegularPolygon {
 
     /**
      * Returns the inner radius of this polygon
+     *
      * @return the inner radius of this polygon
      */
     public double getInRadius() {

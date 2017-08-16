@@ -18,7 +18,6 @@ import java.util.Map;
 
 /**
  * Created by Kevin on 5/19/2017 for genes for Spirals.
- *
  */
 public class DataLogging {
     private static final Map<String, Integer> dirIndices = new HashMap<>();
@@ -28,8 +27,8 @@ public class DataLogging {
      * directory. Ensures that the returned file will not be the same as any
      * existing files within the directory.
      *
-     * @param dirName   The (possibly non-existent) directory where the file will
-     *                  be created
+     * @param dirName   The (possibly non-existent) directory where the file
+     *                  will be created
      * @param extension The extension for the file type to return
      * @return A new unique file within the given directory
      */
@@ -40,14 +39,17 @@ public class DataLogging {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-        if (!dirIndices.containsKey(dirName) || (dirIndices.get(dirName) == 0)) {
-            try (DirectoryStream<Path> dir = Files.newDirectoryStream(targetDir)) {
+        if (!dirIndices.containsKey(dirName)
+                || (dirIndices.get(dirName) == 0)) {
+            try (DirectoryStream<Path> dir
+                         = Files.newDirectoryStream(targetDir)) {
                 int max = 0;
                 for (Path p : dir) {
                     String filename = p.getFileName().toString();
                     int extensionIndex = filename.indexOf("." + extension);
                     if (extensionIndex > 0) {
-                        String noExtFilename = filename.substring(0, extensionIndex);
+                        String noExtFilename
+                                = filename.substring(0, extensionIndex);
 
                         try {
                             int dirIndex = Integer.parseInt(noExtFilename);
@@ -67,7 +69,9 @@ public class DataLogging {
         }
 
         dirIndices.put(dirName, dirIndices.get(dirName) + 1);
-        Path file = targetDir.resolve(dirIndices.get(dirName) + "." + extension);
+        Path file = targetDir.resolve(
+                dirIndices.get(dirName) + "." + extension
+        );
         try {
             Files.createFile(file);
         } catch (IOException ioe) {

@@ -9,12 +9,13 @@ import java.util.function.Predicate;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
+ * Class that draws spirals with a square tiling.
  */
 public class Square implements Drawer {
     @Override
-    public int mousePositionToN(GraphicsContext gc, int length,
-                                double mouseX, double mouseY,
+    public int mousePositionToN(double mouseX, double mouseY,
+                                GraphicsContext gc, int length,
                                 double elemSize, Predicate<Integer> ic) {
         double centerX = gc.getCanvas().getWidth() / 2;
         double centerY = gc.getCanvas().getHeight() / 2;

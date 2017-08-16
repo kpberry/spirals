@@ -5,9 +5,8 @@ import math.preprocessors.Preprocessor;
 
 /**
  * Created by Kevin on 6/11/2017 for Spirals.
- *
+ * <p>
  * Criterion which filters by whether or not a number is greater than 0.
- *
  */
 public class GT_Zero implements InclusionCriterion {
     @Override

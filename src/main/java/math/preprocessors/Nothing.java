@@ -4,7 +4,7 @@ import javafx.beans.binding.DoubleBinding;
 
 /**
  * Created by Kevin on 6/27/2017 for Spirals.
- *
+ * <p>
  * Does nothing as a preprocessing step.
  */
 public class Nothing extends Preprocessor {

@@ -33,6 +33,7 @@ public class Primes {
 
     /**
      * Returns the number of factors a number has (not including 1)
+     *
      * @param n the number to test
      * @return the number of factors n has
      */
@@ -107,6 +108,7 @@ public class Primes {
 
     /**
      * Returns the number of prime factors of a number
+     *
      * @param n the number to test
      * @return the number of prime factors of n
      */
@@ -119,6 +121,7 @@ public class Primes {
 
     /**
      * Returns the progress for updating the current set of values.
+     *
      * @return the current progress
      */
     public static DoubleProperty progressProperty() {

@@ -7,7 +7,6 @@ import java.util.function.Function;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
- *
  */
 @FunctionalInterface
 public interface PreprocessedFn extends Function<Integer, Double> {

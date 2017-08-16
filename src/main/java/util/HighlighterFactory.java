@@ -16,7 +16,6 @@ import java.util.function.Function;
 
 /**
  * Created by Kevin on 6/29/2017 for Spirals.
- *
  */
 @SuppressWarnings("unchecked")
 public class HighlighterFactory {
@@ -75,7 +74,9 @@ public class HighlighterFactory {
                 file.getParent().toUri().toURL()
         });
         compiledClass = Class.forName(className, true, loader);
-        compiledMethod = compiledClass.getDeclaredMethod("apply", Integer.class);
+        compiledMethod = compiledClass.getDeclaredMethod(
+                "apply", Integer.class
+        );
         compiledMethod.setAccessible(true);
     }
 

@@ -7,7 +7,6 @@ import static math.numeric.Goldbach.goldbachIndex;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
- *
  */
 public class GoldbachCount implements PreprocessedFn {
     @Override

@@ -65,7 +65,6 @@ import static javafx.scene.paint.Color.BLACK;
 
 /**
  * Created by Kevin on 5/20/2017 for Spirals.
- *
  */
 public class AppController implements Initializable {
     private final double scalingRate = 0.95;
@@ -158,8 +157,8 @@ public class AppController implements Initializable {
                             .getSelectedItem();
                     Platform.runLater(() -> {
                         int i = drawer.mousePositionToN(
-                                mainGC, intSpiralLengthField.getValue(),
-                                mouse.getX(), mouse.getY(),
+                                mouse.getX(), mouse.getY(), mainGC,
+                                intSpiralLengthField.getValue(),
                                 intElementSizeField.getValue(),
                                 inclusionCriteriaListView.getSelectionModel()
                                         .getSelectedItem()

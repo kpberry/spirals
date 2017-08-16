@@ -2,7 +2,7 @@ package math.shapes;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
- *
+ * <p>
  * Represents a hexagon and computes its points and tiling neighbors.
  */
 public class Hexagon extends RegularPolygon {
@@ -21,9 +21,10 @@ public class Hexagon extends RegularPolygon {
     /**
      * Creates a hexagon adjacent to a base hexagon in a specified tiling
      * direction
+     *
      * @param base the hexagon from which the new hexagon will be made
-     * @param dir the direction in which the new hexagon will be made
-     *            (up-right, up, up-left, down-left, down, or down-right)
+     * @param dir  the direction in which the new hexagon will be made
+     *             (up-right, up, up-left, down-left, down, or down-right)
      */
     public Hexagon(Hexagon base, TilingDirection dir) {
         this(base.getOutRadius(),
@@ -34,6 +35,7 @@ public class Hexagon extends RegularPolygon {
     /**
      * Returns the x location for a new hexagon tiled off of this one in the
      * specified direction
+     *
      * @param dir the direction in which the new hexagon will be made
      *            (up-right, up, up-left, down-left, down, or down-right)
      * @return the new hexagon's x location
@@ -45,6 +47,7 @@ public class Hexagon extends RegularPolygon {
     /**
      * Returns the y location for a new hexagon tiled off of this one in the
      * specified direction
+     *
      * @param dir the direction in which the new hexagon will be made
      *            (up-right, up, up-left, down-left, down, or down-right)
      * @return the new hexagon's y location
@@ -56,6 +59,7 @@ public class Hexagon extends RegularPolygon {
     /**
      * Returns whether or not a specific (x, y) coordinate is within this
      * hexagon
+     *
      * @param x the x coordinate to check
      * @param y the y coordinate to check
      * @return whether or not the coordinate is within this hexagon
@@ -92,6 +96,7 @@ public class Hexagon extends RegularPolygon {
         /**
          * Constructs a tiling direction using the supplied position to compute
          * the angle and offset from a base hexagon
+         *
          * @param position the value by which the base angle of PI / 3 radians
          *                 will be multiplied to get the actual tiling angle
          */
