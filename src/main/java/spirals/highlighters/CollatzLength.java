@@ -7,6 +7,7 @@ import static math.numeric.Collatz.collatzLength;
 
 /**
  * Created by Kevin on 6/28/2017 for Spirals.
+ * Class for preprocessing and getting collatz sequence lengths
  */
 public class CollatzLength implements PreprocessedFn {
     @Override

@@ -7,6 +7,7 @@ import static math.numeric.Primes.isPrime;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
+ * Class for preprocessing and getting whether or not numbers are prime
  */
 public class IsPrime implements PreprocessedFn {
 

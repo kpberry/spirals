@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 /**
  * Created by Kevin on 5/21/2017 for Spirals.
+ * Class for representing and drawing regular polygons.
  */
 public class RegularPolygon {
     private final int numPoints;

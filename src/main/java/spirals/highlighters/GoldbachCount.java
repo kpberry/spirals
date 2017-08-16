@@ -7,6 +7,8 @@ import static math.numeric.Goldbach.goldbachIndex;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
+ * Class for preprocessing and getting the number of ways numbers can be
+ * written as the sums of two primes
  */
 public class GoldbachCount implements PreprocessedFn {
     @Override

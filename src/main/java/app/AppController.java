@@ -168,7 +168,7 @@ public class AppController implements Initializable {
                             infoText.setText(
                                     current.getColorScheme()
                                             + "\nValue: " + i + ": "
-                                            + current.applyHighlighter(i)
+                                            + current.getIntensity(i)
                             );
                         }
                     });

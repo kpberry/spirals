@@ -9,12 +9,14 @@ import static math.numeric.Primes.primeFactorCount;
 
 /**
  * Created by Kevin on 6/26/2017 for Spirals.
+ * Class for preprocessing and getting the difference between the factor
+ * count and the prime factor counts of numbers
  */
 public class DiffFactorCount implements PreprocessedFn {
     @Override
     public Double apply(Integer integer) {
         return (double) factorCount(integer)
-                * ((double) primeFactorCount(integer) + 1);
+                - ((double) primeFactorCount(integer));
     }
 
     @Override
